@@ -1,6 +1,8 @@
 import Head from "next/head";
 import Topo from "@/components/Topo";
 import LadingPage from "@/components/LadingPage";
+import Footer from "@/components/Footer";
+import MaisVendidos from "@/components/MaisVendidos";
 
 
 export default function Home() {
@@ -51,7 +53,7 @@ export default function Home() {
             <div class="p-6 md:p-8 flex flex-col justify-center ml-5">
               <h2 class="text-[16px] mb-2 text-[#E1D5C2]"> Conheça Nossos: </h2>
               <h3 class="text-2xl md:text-3xl mb-4"> Vinhos Tintos </h3>
-              <hr className="w-35 ml-8 mt-0 mb-4 text-[#E1D5C2]"/>
+              <hr className="w-35 ml-8 mt-0 mb-4 text-[#E1D5C2]" />
               <p class="mb-4">
                 Intensos, encorpados e repletos de aromas marcantes, os vinhos tintos brasileiros são perfeitos para quem aprecia sabor e tradição.
               </p>
@@ -86,7 +88,7 @@ export default function Home() {
               <h3 class="text-2xl md:text-3xl">
                 Vinhos Brancos
               </h3>
-              <hr className="w-40 ml-8 mt-4 mb-4 text-[#E1D5C2]"/>
+              <hr className="w-40 ml-8 mt-4 mb-4 text-[#E1D5C2]" />
               <p class="mb-4">
                 Leves, refrescantes e aromáticos, os vinhos brancos brasileiros são perfeitos para quem busca frescor em cada gole.
               </p>
@@ -121,7 +123,7 @@ export default function Home() {
               <h3 class="text-2xl md:text-3xl mb-4">
                 Vinhos Rosés
               </h3>
-              <hr className="w-32 ml-8 mt-0 mb-4 text-[#E1D5C2]"/>
+              <hr className="w-32 ml-8 mt-0 mb-4 text-[#E1D5C2]" />
               <p class="mb-4">
                 Leves e vibrantes, os vinhos rosés oferecem um equilíbrio perfeito entre a frescura dos brancos e a intensidade dos tintos.
               </p>
@@ -149,8 +151,8 @@ export default function Home() {
         </div>
       </div>
 
-
-
+      <MaisVendidos />
+      <Footer />
     </>
   );
 }
