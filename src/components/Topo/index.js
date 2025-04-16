@@ -4,7 +4,7 @@ import { CiUser } from "react-icons/ci";
 
 export default function Topo() {
     return (
-        <header className='z-1000 w-full h-20 fixed bg-black z-10 shadow-lg uppercase'>
+        <header className='z-1000 w-full h-20 fixed bg-black shadow-lg uppercase'>
 
         <div className="flex items-center justify-between">
             <img className="h-12 w-22 ml-10"  src='vivanti.png' /> 
