@@ -2,6 +2,7 @@ import Head from "next/head";
 import Topo from "@/components/Topo";
 import LadingPage from "@/components/LadingPage";
 import Footer from "@/components/Footer";
+import MaisVendidos from "@/components/MaisVendidos";
 
 
 export default function Home() {
@@ -23,19 +24,19 @@ export default function Home() {
         <h3 className="md:text-3xl text-center mt-8 mb-5 text-[#E1D5C2]">Saiba como escolher o vinho ideal para você!</h3>
         <div className="flex gap-5 flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4 mb-12">
           <div className="bg-[#260401] p-6 rounded-lg text-center w-100 h-50">
-          
-              <p className="text-[#E1D5C2] mb-2  text-[20px]">Para quem ama frescor e leveza:</p> O vinho branco é perfeito para quem busca algo refrescante e leve. Com sabores de frutas como maçã verde e pêssego, ele é ideal para momentos de celebração ou refeições leves, como saladas e frutos do mar.
-          
+
+            <p className="text-[#E1D5C2] mb-2  text-[20px]">Para quem ama frescor e leveza:</p> O vinho branco é perfeito para quem busca algo refrescante e leve. Com sabores de frutas como maçã verde e pêssego, ele é ideal para momentos de celebração ou refeições leves, como saladas e frutos do mar.
+
           </div>
           <div className="bg-[#260401] p-6 rounded-lg text-center w-100 h-50 mb-20">
-            
-              <p className="text-[#E1D5C2] ">Para quem gosta de algo mais intenso:</p> O vinho tinto é ideal. Com sabores mais encorpados e notas de frutas escuras e especiarias, ele proporciona uma experiência rica e marcante para quem aprecia vinhos com mais personalidade.
-          
+
+            <p className="text-[#E1D5C2] ">Para quem gosta de algo mais intenso:</p> O vinho tinto é ideal. Com sabores mais encorpados e notas de frutas escuras e especiarias, ele proporciona uma experiência rica e marcante para quem aprecia vinhos com mais personalidade.
+
           </div>
           <div className="bg-[#260401] p-6 rounded-lg text-center w-100 h-50">
-           
-              <p className="text-[#E1D5C2] mb-2 text-[20px]">Para quem prefere algo mais doce:</p> O vinho rosé é uma ótima opção. Ele tem um equilíbrio entre a leveza do vinho branco e a suavidade do vinho tinto, com sabores de frutas vermelhas e um toque de doçura, ideal para quem gosta de algo mais suave.
-            
+
+            <p className="text-[#E1D5C2] mb-2 text-[20px]">Para quem prefere algo mais doce:</p> O vinho rosé é uma ótima opção. Ele tem um equilíbrio entre a leveza do vinho branco e a suavidade do vinho tinto, com sabores de frutas vermelhas e um toque de doçura, ideal para quem gosta de algo mais suave.
+
           </div>
         </div>
 
@@ -52,7 +53,7 @@ export default function Home() {
             <div class="p-6 md:p-8 flex flex-col justify-center ml-5">
               <h2 class="text-[16px] mb-2 text-[#E1D5C2]"> Conheça Nossos: </h2>
               <h3 class="text-2xl md:text-3xl mb-4"> Vinhos Tintos </h3>
-              <hr className="w-35 ml-8 mt-0 mb-4 text-[#E1D5C2]"/>
+              <hr className="w-35 ml-8 mt-0 mb-4 text-[#E1D5C2]" />
               <p class="mb-4">
                 Intensos, encorpados e repletos de aromas marcantes, os vinhos tintos brasileiros são perfeitos para quem aprecia sabor e tradição.
               </p>
@@ -87,7 +88,7 @@ export default function Home() {
               <h3 class="text-2xl md:text-3xl">
                 Vinhos Brancos
               </h3>
-              <hr className="w-40 ml-8 mt-4 mb-4 text-[#E1D5C2]"/>
+              <hr className="w-40 ml-8 mt-4 mb-4 text-[#E1D5C2]" />
               <p class="mb-4">
                 Leves, refrescantes e aromáticos, os vinhos brancos brasileiros são perfeitos para quem busca frescor em cada gole.
               </p>
@@ -122,7 +123,7 @@ export default function Home() {
               <h3 class="text-2xl md:text-3xl mb-4">
                 Vinhos Rosés
               </h3>
-              <hr className="w-32 ml-8 mt-0 mb-4 text-[#E1D5C2]"/>
+              <hr className="w-32 ml-8 mt-0 mb-4 text-[#E1D5C2]" />
               <p class="mb-4">
                 Leves e vibrantes, os vinhos rosés oferecem um equilíbrio perfeito entre a frescura dos brancos e a intensidade dos tintos.
               </p>
@@ -149,8 +150,9 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-<Footer />
+      
+      <MaisVendidos />
+      <Footer />
     </>
   );
 }
