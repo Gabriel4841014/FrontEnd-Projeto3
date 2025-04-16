@@ -22,19 +22,19 @@ export default function Home() {
         <h3 className="md:text-3xl text-center mt-8 mb-5 text-[#E1D5C2]">Saiba como escolher o vinho ideal para você!</h3>
         <div className="flex gap-5 flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4 mb-12">
           <div className="bg-[#260401] p-6 rounded-lg text-center w-100 h-50">
-            <p>
+          
               <p className="text-[#E1D5C2] mb-2  text-[20px]">Para quem ama frescor e leveza:</p> O vinho branco é perfeito para quem busca algo refrescante e leve. Com sabores de frutas como maçã verde e pêssego, ele é ideal para momentos de celebração ou refeições leves, como saladas e frutos do mar.
-            </p>
+          
           </div>
           <div className="bg-[#260401] p-6 rounded-lg text-center w-100 h-50 mb-20">
-            <p>
+            
               <p className="text-[#E1D5C2] ">Para quem gosta de algo mais intenso:</p> O vinho tinto é ideal. Com sabores mais encorpados e notas de frutas escuras e especiarias, ele proporciona uma experiência rica e marcante para quem aprecia vinhos com mais personalidade.
-            </p>
+          
           </div>
           <div className="bg-[#260401] p-6 rounded-lg text-center w-100 h-50">
-            <p>
+           
               <p className="text-[#E1D5C2] mb-2 text-[20px]">Para quem prefere algo mais doce:</p> O vinho rosé é uma ótima opção. Ele tem um equilíbrio entre a leveza do vinho branco e a suavidade do vinho tinto, com sabores de frutas vermelhas e um toque de doçura, ideal para quem gosta de algo mais suave.
-            </p>
+            
           </div>
         </div>
 
