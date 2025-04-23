@@ -2,8 +2,7 @@ import Head from "next/head";
 import Topo from "@/components/Topo";
 import LadingPage from "@/components/LadingPage";
 import Footer from "@/components/Footer";
-import MaisVendidos from "@/components/MaisVendidos";
-
+import CardProd from "@/components/CardProd";
 
 export default function Home() {
   return (
@@ -97,6 +96,15 @@ export default function Home() {
             </div>
           </div>
 
+        </div>
+
+        <p className="text-[#E1D5C2] text-4xl font-['Gilda_Display'] mt-50">Nossos produtos mais vendidos</p>
+
+        <div className="w-[1280px] h-auto ml-auto mr-auto mt-20 mb-20 p-7 items-center bg-[#000002] flex flex-row gap-5 content-center justify-center">
+          <CardProd />
+          <CardProd />
+          <CardProd />
+          <CardProd />
         </div>
       </div>
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { PiShoppingCartThin } from "react-icons/pi";
 import { CiUser } from "react-icons/ci";
+import Link from "next/link";
 
 export default function Topo() {
     return (

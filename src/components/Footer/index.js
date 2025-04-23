@@ -1,6 +1,8 @@
+'use client'
+
 import React from 'react';
 import { VscArrowRight } from "react-icons/vsc";
-import { IoLogoInstagram } from "react-icons/io";
+import { IoLogoInstagram, IoMdAdd } from "react-icons/io";
 import { SlSocialFacebook } from "react-icons/sl";
 import { PiTwitterLogoLight } from "react-icons/pi";
 
