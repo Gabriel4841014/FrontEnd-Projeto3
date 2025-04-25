@@ -57,7 +57,7 @@ export default function Home() {
           </div>
 
           <div className="bg-[#20232A] rounded-lg overflow-hidden flex flex-col md:flex-row-reverse mb-5">
-            <img alt="Garrafa de vinho branco com taças" class="w-full md:w-1/2 object-cover rounded-lg" height="400" src="vinho_branco.png" width="600" />
+            <img alt="Garrafa de vinho branco com taças" className="w-full md:w-1/2 object-cover rounded-lg" height="400" src="vinho_branco.png" width="600" />
 
             <div className="p-6 md:p-8 flex flex-col justify-center ml-5">
 
@@ -78,7 +78,7 @@ export default function Home() {
           </div>
 
           <div className="bg-[#20232A] rounded-lg overflow-hidden flex flex-col md:flex-row">
-            <img alt="Garrafa de vinho rosé com taças" class="w-full md:w-1/2 object-cover rounded-lg" height="400" src="Rosé Season _ Wine photography, Wine, Wine knowledge.png" width="600" />
+            <img alt="Garrafa de vinho rosé com taças" className="w-full md:w-1/2 object-cover rounded-lg" height="400" src="Rosé Season _ Wine photography, Wine, Wine knowledge.png" width="600" />
 
             <div className="p-6 md:p-8 flex flex-col justify-center ml-5">
               <h2 className="text-[16px] mb-2 text-[#E1D5C2]">Conheça Nossos:</h2>

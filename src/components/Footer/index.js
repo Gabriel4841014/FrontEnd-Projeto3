@@ -19,13 +19,13 @@ export default function Footer() {
                     Quer receber nossas ofertas? Cadastre-se e comece a recebê-las!
                 </p>
 
-                <div className="mt-5 flex flex-col sm:flex-row items-center w-full max-w-md bg-[#EAE5E1] rounded-[10px]">
+                <div className="mt-5 flex flex-col sm:flex-row items-center w-200 bg-[#EAE5E1] rounded-lg">
                     <input
-                        className="flex-grow h-12 bg-transparent text-black font-['Montserrat'] rounded-t-[10px] sm:rounded-l-[10px] sm:rounded-t-none pl-4 outline-none"
+                        className="flex-grow h-12 bg-transparent text-black font-['Montserrat'] rounded-t-[10px] sm:rounded-l-[10px]  pl-4 outline-none"
                         type="email"
                         placeholder="Digite seu E-mail"
                     />
-                    <button className="w-full sm:w-12 h-12 bg-[#EAE5E1] flex items-center justify-center rounded-b-[10px] sm:rounded-r-[10px] sm:rounded-b-none">
+                    <button className="w-full sm:w-12 h-12 bg-[#EAE5E1] flex items-center justify-center rounded-lg">
                         <VscArrowRight className="text-black text-[20px]" />
                     </button>
                 </div>
@@ -45,7 +45,7 @@ export default function Footer() {
 
                 <div className="m-auto flex flex-col items-center">
                     <p className="text-[#E1D5C2] text-lg sm:text-xl font-['Gilda_Display'] text-center">Formas de pagamento</p>
-                    <img className="w-40 sm:w-60 mt-5 bg-[#D9D9D9] rounded-2xl h-18" src="formas-de-pagamento.png" alt="Formas de pagamento" />
+                    <img className="w-40 sm:w-60 mt-5 bg-[#D9D9D9] rounded-lg" src="pag-icons.png" alt="Formas de pagamento" />
                 </div>
 
                 <div className="m-auto">

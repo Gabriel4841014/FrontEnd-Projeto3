@@ -11,10 +11,10 @@ export default function Topo() {
         <img className="h-12 w-22 ml-10" src="Vivanti.png" alt="Vivant Logo" /> 
 
             <nav className="flex items-center justify-between pr-10 p-5 gap-10">
-                <a className='text-[20px]' href='/'>Home</a>
-                <a className='text-[20px]' href='/vitrine'>Vinhos</a>
-                <a className='text-[20px]' href='#'>Sobre nós</a>
-                <a className='text-[20px]' href='#'>Contato</a>
+                <a className='text-[20px] underline decoration-transparent transition duration-300 ease-in-out hover:decoration-inherit' href='/'>Home</a>
+                <a className='text-[20px] underline decoration-transparent transition duration-300 ease-in-out hover:decoration-inherit' href='/vitrine'>Vinhos</a>
+                <a className='text-[20px] underline decoration-transparent transition duration-300 ease-in-out hover:decoration-inherit' href='#'>Sobre nós</a>
+                <a className='text-[20px] underline decoration-transparent transition duration-300 ease-in-out hover:decoration-inherit' href='/contato'>Contato</a>
 
                 <a className='text-[28px]' href='#'> <PiShoppingCartThin /> </a>
                 <a className='text-[28px]' href='#'> <CiUser /> </a>
