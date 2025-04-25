@@ -45,7 +45,7 @@ export default function Footer() {
 
                 <div className="m-auto flex flex-col items-center">
                     <p className="text-[#E1D5C2] text-lg sm:text-xl font-['Gilda_Display'] text-center">Formas de pagamento</p>
-                    <img className="w-40 sm:w-60 mt-5" src="formas-de-pagamento.png" alt="Formas de pagamento" />
+                    <img className="w-40 sm:w-60 mt-5 bg-[#D9D9D9] rounded-2xl h-18" src="formas-de-pagamento.png" alt="Formas de pagamento" />
                 </div>
 
                 <div className="m-auto">

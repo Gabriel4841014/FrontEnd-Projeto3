@@ -8,7 +8,7 @@ export default function Topo() {
         <header className='z-100 w-full h-20 fixed bg-black shadow-lg uppercase'>
 
         <div className="flex items-center justify-between">
-        <img className="h-12 w-22 ml-10" src="rose-season.png" alt="Vivant Logo" /> 
+        <img className="h-12 w-22 ml-10" src="Vivanti.png" alt="Vivant Logo" /> 
 
             <nav className="flex items-center justify-between pr-10 p-5 gap-10">
                 <a className='text-[20px]' href='/'>Home</a>
