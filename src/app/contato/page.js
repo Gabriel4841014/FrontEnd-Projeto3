@@ -3,7 +3,7 @@ import React from 'react';
 export default function Contato() {
     return (
 
-        <body className="bg-black text-[#d6c9b9] min-h-screen flex flex-col items-center px-4 py-8">
+        <div className="bg-black text-[#d6c9b9] min-h-screen flex flex-col items-center px-4 py-8">
             <header className="w-full max-w-4xl mb-8">
                 <a href="#" className="inline-flex items-center text-[#d6c9b9] text-sm font-light mb-6 hover:underline">
                     <i className="fas fa-arrow-left mr-2"></i> Voltar
@@ -11,28 +11,28 @@ export default function Contato() {
             </header>
 
             <section className="w-full max-w-4xl flex flex-col items-center space-y-10">
-                <div className="text-center text-[#d6c9b9] font-light text-lg max-w-2xl">
+                <div className="text-center text-[#E1D5C2] font-light text-3xl max-w-2xl">
                     Dúvidas? Entre em contato e vamos te ajudar!
                 </div>
 
                 <div className="w-full max-w-3xl flex justify-center gap-16 text-center text-[#d6c9b9] font-light text-xs sm:text-sm">
                     <div className="flex flex-col items-center max-w-[120px]">
-                        <i className="fas fa-phone-alt text-lg mb-2"></i>
-                        <span className="font-normal">Telefone</span>
-                        <span className="mt-1 text-[10px] leading-tight">(12) 9 8202-1943</span>
+                        
+                        <span className="font-normal text-[#EAE5E1]">Telefone</span>
+                        <span className="mt-1 text-[10px] text-[#EAE5E1] leading-tight">(12) 9 8202-1943</span>
                     </div>
                     <div className="flex flex-col items-center max-w-[140px] border-l border-r border-[#d6c9b9] px-6">
-                        <i className="fas fa-map-marker-alt text-lg mb-2"></i>
-                        <span className="font-normal">Endereço</span>
-                        <span className="mt-1 text-[10px] leading-tight">
+                        
+                        <span className="font-normal text-[#EAE5E1]">Endereço</span>
+                        <span className="mt-1 text-[10px] text-[#EAE5E1] leading-tight">
                             Rua Mário Salton, 300 -<br />
                             Bento Gonçalves, RS
                         </span>
                     </div>
                     <div className="flex flex-col items-center max-w-[120px]">
-                        <i className="fas fa-envelope text-lg mb-2"></i>
-                        <span className="font-normal">Email</span>
-                        <span className="mt-1 text-[10px] leading-tight">vivant.contato@gmail.com</span>
+                        
+                        <span className="font-normal text-[#EAE5E1]">Email</span>
+                        <span className="mt-1 text-[10px] text-[#EAE5E1] leading-tight">vivant.contato@gmail.com</span>
                     </div>
                 </div>
 
@@ -97,6 +97,6 @@ export default function Contato() {
                     </div>
                 </form>
             </section>
-        </body>
+        </div>
     )
 }
