@@ -10,7 +10,7 @@ export default function Footer() {
     return (
         
         <footer className="bg-black text-[#EAE5E1]">
-            {/* Promoções */}
+
             <div className="w-full h-auto px-4 py-10 flex flex-col items-center gap-5">
                 <p className="text-[#E1D5C2] text-2xl sm:text-3xl font-['Gilda_Display'] text-center">
                     Fique por dentro de todas as promoções
