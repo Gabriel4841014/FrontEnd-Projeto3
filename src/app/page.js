@@ -1,9 +1,7 @@
 import Head from "next/head";
-import Topo from "@/components/Topo";
 import LadingPage from "@/components/LadingPage";
-import Footer from "@/components/Footer";
 import CardProd from "@/components/CardProd";
-
+import MaiorIdade from "@/components/MaiorIdade";
 
 export default function Home() {
   return (
@@ -14,6 +12,7 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
+      <MaiorIdade />
 
       <LadingPage />
 
@@ -109,7 +108,6 @@ export default function Home() {
         </div>
       </div>
 
-     
     </>
   );
 }
