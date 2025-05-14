@@ -34,7 +34,7 @@ export default function Home() {
         </div>
 
 
-        
+
         <h1 className="text-center md:text-3xl mb-8 text-[#E1D5C2] mt-25">Descubra os vinhos mais especiais da nossa seleção!</h1>
 
         <div className="grid gap-8 w-2/4 mt-15">
@@ -98,14 +98,17 @@ export default function Home() {
 
         </div>
 
-        <p className="text-[#E1D5C2] text-4xl font-['Gilda_Display'] mt-50">Nossos produtos mais vendidos</p>
+          <p className="text-[#E1D5C2] text-2xl md:text-4xl font-['Gilda_Display'] mt-10 md:mt-20 text-center">
+            Nossos produtos mais vendidos
+          </p>
 
-        <div className="w-[1280px] h-auto ml-auto mr-auto mt-20 mb-20 p-7 items-center bg-[#000002] flex flex-row gap-5 content-center justify-center">
-          <CardProd />
-          <CardProd />
-          <CardProd />
-          <CardProd />
-        </div>
+          <div className="w-[90%] max-w-[1280px] h-auto mx-auto mt-10 md:mt-20 mb-10 md:mb-20 p-5 md:p-7 bg-[#000002] flex flex-wrap gap-5 justify-center">
+            <CardProd />
+            <CardProd />
+            <CardProd />
+            <CardProd />
+          </div>
+
       </div>
 
     </>
