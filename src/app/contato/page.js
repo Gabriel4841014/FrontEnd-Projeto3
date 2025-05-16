@@ -4,9 +4,10 @@ import React, { useState } from 'react';
 import { BsTelephone } from "react-icons/bs";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineEmail } from "react-icons/md";
-import { FaArrowLeft } from "react-icons/fa6";
+import BtnVoltar from "@/components/BtnVoltar";
 
 export default function Contato() {
+
   // State to manage accordion open/close
   const [openAccordion, setOpenAccordion] = useState(null);
 
@@ -47,6 +48,7 @@ export default function Contato() {
         <div className="text-center text-[#d6c9b9] mt-20 font-light text-xl max-w-2xl">
           Escreva uma mensagem para nós!
         </div>
+
 
         <form
           className="w-full max-w-6xl bg-[#22272f] rounded-lg p-6 space-y-4"

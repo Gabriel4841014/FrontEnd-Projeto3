@@ -4,13 +4,17 @@ import Image from "next/image";
 import Missao from "../../../public/missao.png";
 import Visao from "../../../public/visao.png";
 import Valores from "../../../public/valores.png";
+import BtnVoltar from "@/components/BtnVoltar";
 
 export default function Sobre() {
     return (
-        <body>
+    
             <main className="pt-30">
 
-                <div className="w-auto h-auto bg-[#20232A]">
+                <div className="bg-[#20232A]">
+                <div className="flex flex-col fixed top-0 left-0 w-full h-20 bg-black shadow-lg uppercase">
+                    <BtnVoltar />
+                </div>
                     <div className="flex flex-col gap-10 justify-center items-center text-center">
 
                         <h1 className="justify-start mt-10 mb-10 text-[#E1D5C2] text-4xl font-normal font-['Gilda_Display']">Descubra quem somos e o que nos inspira!</h1>
@@ -64,23 +68,23 @@ export default function Sobre() {
 
                         <div className="w-110 h-60 bg-neutral-800 rounded-[10px]  p-8">
                             <p className="justify-start text-[#E1D5C2] text-2xl font-['Gilda_Display']">Seleção de Produtos e Qualidade:</p>
-                            <p class="justify-start text-[#FFFFFF] text-xl font-['Gilda_Display'] mt-6">Oferecemos uma curadoria de vinhos de qualidade, com rótulos variados que atendem diferentes gostos e ocasiões, incluindo opções premium e sustentáveis.</p>
+                            <p className="justify-start text-[#FFFFFF] text-xl font-['Gilda_Display'] mt-6">Oferecemos uma curadoria de vinhos de qualidade, com rótulos variados que atendem diferentes gostos e ocasiões, incluindo opções premium e sustentáveis.</p>
                         </div>
 
                         <div className="w-110 h-60 bg-neutral-800 rounded-[10px]  p-8">
                             <p className="justify-start text-[#E1D5C2] text-2xl font-['Gilda_Display']">Experiência do Cliente:</p>
-                            <p class="justify-start text-[#FFFFFF] text-xl font-['Gilda_Display'] mt-6">Garantimos um processo de compra simples e intuitivo, com atendimento eficiente, suporte ágil e uma plataforma de fácil navegação.</p>
+                            <p className="justify-start text-[#FFFFFF] text-xl font-['Gilda_Display'] mt-6">Garantimos um processo de compra simples e intuitivo, com atendimento eficiente, suporte ágil e uma plataforma de fácil navegação.</p>
                         </div>
 
                         <div className="w-110 h-60 bg-neutral-800 rounded-[10px]  p-8">
                             <p className="justify-start text-[#E1D5C2] text-2xl font-['Gilda_Display']">Entrega e Logística:</p>
-                            <p class="justify-start text-[#FFFFFF] text-xl font-['Gilda_Display'] mt-6">Oferecemos um serviço de entrega rápida e segura, com embalagens adequadas para preservar a qualidade dos vinhos durante o transporte.</p>
+                            <p className="justify-start text-[#FFFFFF] text-xl font-['Gilda_Display'] mt-6">Oferecemos um serviço de entrega rápida e segura, com embalagens adequadas para preservar a qualidade dos vinhos durante o transporte.</p>
                         </div>
                     </div>
 
                 </div>
 
             </main>
-        </body>
+      
     )
 }
