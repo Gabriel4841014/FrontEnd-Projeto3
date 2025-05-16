@@ -2,32 +2,16 @@ import React from 'react';
 import { BsTelephone } from "react-icons/bs";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineEmail } from "react-icons/md";
-<<<<<<< HEAD
-import { FaArrowLeft } from "react-icons/fa6";
-=======
 import BtnVoltar from "@/components/BtnVoltar";
->>>>>>> 0de6cd9 (Linkadas paginas- Botao voltar - sincronizadas branchs)
 
 export default function Contato() {
     return (
 
         <div className="bg-black text-[#d6c9b9] min-h-screen flex flex-col items-center px-4 py-8">
 
-<<<<<<< HEAD
-            <header className="w-full mt-15 mb-20 ml-5">
-                <a href="/" className=" text-[#d6c9b9] text-2xl flex mb-6 ">
-                    <FaArrowLeft />
-                    <span className='ml-2 '>Voltar</span>
-                </a>
-            </header>
-
-
-
-=======
            <div className="flex flex-col fixed top-0 left-0 w-full h-20 bg-black shadow-lg uppercase">
                         <BtnVoltar />
                </div>
->>>>>>> 0de6cd9 (Linkadas paginas- Botao voltar - sincronizadas branchs)
 
             <section className="w-full max-w-4xl flex flex-col items-center space-y-10">
                 <div className="text-center text-[#E1D5C2] font-light mb-10 text-2xl max-w-2xl">

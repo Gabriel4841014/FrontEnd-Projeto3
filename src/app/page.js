@@ -1,9 +1,12 @@
 "use client"
 import Head from "next/head";
+import { useState, useEffect } from "react";
 import Topo from "@/components/Topo";
 import LadingPage from "@/components/LadingPage";
 import CardProd from "@/components/CardProd";
-
+import { useRouter } from 'next/navigation';
+import MaiorIdade from "@/components/MaiorIdade";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const [produtos, setProdutos] = useState([]);
@@ -52,14 +55,12 @@ export default function Home() {
               <p className="text-[#E1D5C2] ">Para quem gosta de algo mais intenso:</p> O vinho tinto é ideal. Com sabores mais encorpados e notas de frutas escuras e especiarias, ele proporciona uma experiência rica e marcante para quem aprecia vinhos com mais personalidade.
             </div>
 
-          <div className="bg-[#260401] p-6 rounded-lg text-center w-100 h-50">
-            <p className="text-[#E1D5C2] mb-2 text-[20px]">Para quem prefere algo mais doce:</p> O vinho rosé é uma ótima opção. Ele tem um equilíbrio entre a leveza do vinho branco e a suavidade do vinho tinto, com sabores de frutas vermelhas e um toque de doçura, ideal para quem gosta de algo mais suave.
+            <div className="bg-[#260401] p-6 rounded-lg text-center w-100 h-50">
+              <p className="text-[#E1D5C2] mb-2 text-[20px]">Para quem prefere algo mais doce:</p> O vinho rosé é uma ótima opção. Ele tem um equilíbrio entre a leveza do vinho branco e a suavidade do vinho tinto, com sabores de frutas vermelhas e um toque de doçura, ideal para quem gosta de algo mais suave.
+            </div>
           </div>
-        </div>
 
-
-        
-        <h1 className="text-center md:text-3xl mb-8 text-[#E1D5C2] mt-25">Descubra os vinhos mais especiais da nossa seleção!</h1>
+          <h1 className="text-center md:text-3xl mb-8 text-[#E1D5C2] mt-25">Descubra os vinhos mais especiais da nossa seleção!</h1>
 
           <div className="grid gap-8 w-2/4 mt-15">
             <div className="bg-[#20232A] rounded-lg overflow-hidden flex flex-col md:flex-row mb-5">
@@ -84,8 +85,8 @@ export default function Home() {
               </div>
             </div>
 
-          <div className="bg-[#20232A] rounded-lg overflow-hidden flex flex-col md:flex-row-reverse mb-5">
-            <img alt="Garrafa de vinho branco com taças" class="w-full md:w-1/2 object-cover rounded-lg" height="400" src="vinho_branco.png" width="600" />
+            <div className="bg-[#20232A] rounded-lg overflow-hidden flex flex-col md:flex-row-reverse mb-5">
+              <img alt="Garrafa de vinho branco com taças" className="w-full md:w-1/2 object-cover rounded-lg" height="400" src="vinho_branco.png" width="600" />
 
               <div className="p-6 md:p-8 flex flex-col justify-center ml-5">
 
@@ -110,8 +111,8 @@ export default function Home() {
               </div>
             </div>
 
-          <div className="bg-[#20232A] rounded-lg overflow-hidden flex flex-col md:flex-row">
-            <img alt="Garrafa de vinho rosé com taças" class="w-full md:w-1/2 object-cover rounded-lg" height="400" src="Rosé Season _ Wine photography, Wine, Wine knowledge.png" width="600" />
+            <div className="bg-[#20232A] rounded-lg overflow-hidden flex flex-col md:flex-row">
+              <img alt="Garrafa de vinho rosé com taças" className="w-full md:w-1/2 object-cover rounded-lg" height="400" src="Rosé Season _ Wine photography, Wine, Wine knowledge.png" width="600" />
 
               <div className="p-6 md:p-8 flex flex-col justify-center ml-5">
                 <h2 className="text-[16px] mb-2 text-[#E1D5C2]">Conheça Nossos:</h2>
@@ -144,17 +145,22 @@ export default function Home() {
               </h2>
             </div>
 
-        <p className="text-[#E1D5C2] text-4xl font-['Gilda_Display'] mt-50">Nossos produtos mais vendidos</p>
+            {isLoading ? (
+              <div className="flex justify-center items-center h-40">
+                <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-[#E1D5C2]"></div>
+              </div>
+            ) : (
+              <div className="w-[1280px] h-auto ml-auto mr-auto mt-10 mb-20 p-7 items-center bg-[#000002] flex flex-row gap-5 content-center justify-center">
+                {produtos.slice(0, 4).map((produto) => (
+                  <CardProd key={produto.idProduto} produto={produto} />
+                ))}
+              </div>
+            )}
+          </div>
 
-        <div className="w-[1280px] h-auto ml-auto mr-auto mt-20 mb-20 p-7 items-center bg-[#000002] flex flex-row gap-5 content-center justify-center">
-          <CardProd />
-          <CardProd />
-          <CardProd />
-          <CardProd />
+          <Footer />
         </div>
       </div>
-
-     
     </>
   );
 }
