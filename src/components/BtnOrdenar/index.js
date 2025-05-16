@@ -2,12 +2,11 @@
 import React, { useState } from 'react';
 import { BiSortAlt2 } from "react-icons/bi";
 
-export default function BtnOrdenar({ onClick }) {
+export default function BtnOrdenar({ onSort }) {
     const [isOpen, setIsOpen] = useState(false);
-    const [sortType, setSortType] = useState('default');
-    
+
     const handleSort = (type) => {
-        setSortType(type);
+        onSort(type);
         setIsOpen(false);
     };
 
@@ -21,7 +20,7 @@ export default function BtnOrdenar({ onClick }) {
                 Ordenar por
             </button>
             {isOpen && (
-                <div className="absolute top-12 left-0 bg-white shadow-lg rounded-md">
+                <div className="absolute top-12 left-0 bg-white shadow-lg rounded-md z-10">
                     <button 
                         onClick={() => handleSort('price-asc')}
                         className="block w-full text-black text-left px-4 py-2 hover:bg-gray-100"

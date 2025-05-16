@@ -9,10 +9,11 @@ export default function Vitrine() {
     const [produtos, setProdutos] = useState([]);
     const [produtosFiltrados, setProdutosFiltrados] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [sortType, setSortType] = useState('default');
     const [filtrosAtivos, setFiltrosAtivos] = useState({
         categoria: [],
         classificacao: [],
-        preco: [], // Changed from marca to preco
+        preco: [],
         regiao: []
     });
 
@@ -49,7 +50,6 @@ export default function Vitrine() {
         return ranges.some(range => {
             const [min, max] = range.split('-').map(Number);
             if (!max) {
-                // For "501" case (above 500)
                 return precoNum >= min;
             }
             return precoNum >= min && precoNum <= max;
@@ -88,6 +88,25 @@ export default function Vitrine() {
         setProdutosFiltrados(produtosFiltrados);
     }, [filtrosAtivos, produtos]);
 
+    const handleSort = (type) => {
+        setSortType(type);
+        const sortedProducts = [...produtosFiltrados].sort((a, b) => {
+            switch (type) {
+                case 'price-asc':
+                    return parseFloat(a.preco) - parseFloat(b.preco);
+                case 'price-desc':
+                    return parseFloat(b.preco) - parseFloat(a.preco);
+                case 'name-asc':
+                    return a.nome.localeCompare(b.nome);
+                case 'name-desc':
+                    return b.nome.localeCompare(a.nome);
+                default:
+                    return 0;
+            }
+        });
+        setProdutosFiltrados(sortedProducts);
+    };
+
     if (isLoading) {
         return (
             <div className="flex justify-center items-center h-screen">
@@ -109,11 +128,10 @@ export default function Vitrine() {
                 <div className="w-full h-auto px-4 sm:px-8 flex flex-row justify-between">
                     <div>
                         <h2 className="text-[#ffffff] text-2xl font-['Gilda_Display'] mt-20 mb-0">
-                            Mostrando {produtos.length} de {produtos.length}
+                            Mostrando {produtosFiltrados.length} de {produtos.length}
                         </h2>
                     </div>
-
-                    <BtnOrdenar></BtnOrdenar>
+                    <BtnOrdenar onSort={handleSort} />
                 </div>
 
                 <div className="h-0.5 w-full bg-white mb-5"></div>
