@@ -12,7 +12,7 @@ export default function Sobre() {
             <main className="pt-30">
 
                 <div className="bg-[#20232A]">
-                <div className="flex flex-col fixed top-0 left-0 w-full h-20 bg-black shadow-lg uppercase">
+                <div className="flex items-center top-0 left-0 w-full h-20 bg-black shadow-lg">
                     <BtnVoltar />
                 </div>
                     <div className="flex flex-col gap-10 justify-center items-center text-center">

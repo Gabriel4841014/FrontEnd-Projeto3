@@ -5,6 +5,7 @@ import { BsTelephone } from "react-icons/bs";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineEmail } from "react-icons/md";
 import BtnVoltar from "@/components/BtnVoltar";
+import { FaArrowLeft } from "react-icons/fa6";
 
 export default function Contato() {
 
@@ -17,8 +18,8 @@ export default function Contato() {
 
   return (
     <div className="bg-black text-[#d6c9b9] min-h-screen flex flex-col items-center px-4 py-8">
-      <header className="w-full mt-15 mb-20 ml-5">
-        <a href="/" className=" text-[#d6c9b9] text-2xl flex mb-6 items-center">
+      <header className="w-full mt-15 mb-20 ml-4">
+        <a href="/" className=" text-[#d6c9b9] text-xl flex mb-6 ml-4 items-center">
           <FaArrowLeft />
           <span className='ml-2 '>Voltar</span>
         </a>
@@ -45,7 +46,7 @@ export default function Contato() {
             <span className="mt-1 text-[14px] text-[#EAE5E1] leading-tight">vivant.contato@gmail.com</span>
           </div>
         </div>
-        <div className="text-center text-[#d6c9b9] mt-20 font-light text-xl max-w-2xl">
+        <div className="text-center text-[#d6c9b9] mt-20 font-light text-2xl max-w-2xl">
           Escreva uma mensagem para nós!
         </div>
 
@@ -57,7 +58,7 @@ export default function Contato() {
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="flex flex-col">
-              <label className="text-xs mb-1">Nome</label>
+              <label className="text-[16px] mb-1">Nome</label>
               <input
                 type="text"
                 name="nome"
@@ -67,12 +68,12 @@ export default function Contato() {
               />
             </div>
             <div className="flex flex-col">
-              <label className="text-xs mb-1">Sobrenome</label>
+              <label className="text-[16px] mb-1">Sobrenome</label>
               <input
                 type="text"
                 name="sobrenome"
                 placeholder="Digite seu sobrenome..."
-                className="bg-[#e9e5e1] text-black text-xs h-10 rounded px-3 py-2 placeholder:text-xs placeholder:text-[#7a7a7a]"
+                className="bg-[#e9e5e1] text-black text-xs h-10 rounded px-3 py-2 placeholder:text-xs placeholder:text-[#7a7a7a] outline-none"
                 required
               />
             </div>
@@ -80,22 +81,22 @@ export default function Contato() {
 
           <div className="grid mt-3 grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="flex flex-col">
-              <label className="text-xs mb-1">Email</label>
+              <label className="text-[16px] mb-1">Email</label>
               <input
                 type="email"
                 name="email"
                 placeholder="exemplo@gmail.com"
-                className="bg-[#e9e5e1] text-black text-xs h-10 rounded px-3 py-2 placeholder:text-xs placeholder:text-[#7a7a7a]"
+                className="bg-[#e9e5e1] text-black text-xs h-10 rounded px-3 py-2 placeholder:text-xs placeholder:text-[#7a7a7a] outline-none"
                 required
               />
             </div>
             <div className="flex flex-col">
-              <label className="text-xs mb-1">Assunto</label>
+              <label className="text-[16px] mb-1">Assunto</label>
               <input
                 type="text"
                 name="assunto"
                 placeholder="Digite o assunto..."
-                className="bg-[#e9e5e1] text-black text-xs h-10 rounded px-3 py-2 placeholder:text-xs placeholder:text-[#7a7a7a]"
+                className="bg-[#e9e5e1] text-black text-xs h-10 rounded px-3 py-2 placeholder:text-xs placeholder:text-[#7a7a7a] outline-none"
                 required
               />
             </div>
@@ -106,7 +107,7 @@ export default function Contato() {
               name="mensagem"
               rows="6"
               placeholder="Escreva sua mensagem aqui..."
-              className="bg-[#e9e5e1] text-black text-xs rounded h-50 px-3 py-2 placeholder:text-xs placeholder:text-[#7a7a7a] resize-none w-full"
+              className="bg-[#e9e5e1] text-black text-xs rounded h-50 px-3 py-2 placeholder:text-xs placeholder:text-[#7a7a7a] resize-none w-full outline-none"
               required
             ></textarea>
           </div>
@@ -118,7 +119,7 @@ export default function Contato() {
           <div className="flex justify-center">
             <button
               type="submit"
-              className="bg-[#d6c9b9] text-black text-xs rounded-[7px] px-6 py-2 font-light hover:bg-[#c1b49e] transition-colors"
+              className="bg-[#d6c9b9] text-black text-[16px] rounded-[7px] px-6 py-2 font-light hover:bg-[#c1b49e] transition-colors"
             >
               Confirmar e enviar
             </button>
@@ -145,8 +146,8 @@ export default function Contato() {
                   answer: 'Todos os nossos vinhos são certificados e seguem rigorosos padrões de qualidade. Trabalhamos apenas com produtores reconhecidos e vinícolas que respeitam os processos de fabricação de excelência.'
                 },
                 {
-                  question: 'Os vinhos possuem selo de qualidade?',
-                  answer: 'Todos os nossos vinhos são certificados e seguem rigorosos padrões de qualidade. Trabalhamos apenas com produtores reconhecidos e vinícolas que respeitam os processos de fabricação de excelência.'
+                  question: 'Os vinhos têm garantia ou política de devolução?',
+                  answer: 'Sim. Você pode solicitar a devolução em até 7 dias após o recebimento do pedido, conforme o Código de Defesa do Consumidor. O produto deve estar lacrado e em perfeitas condições.'
                 },
                
               ].map((item, index) => (
