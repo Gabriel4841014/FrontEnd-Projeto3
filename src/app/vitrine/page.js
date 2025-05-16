@@ -7,34 +7,88 @@ import BtnOrdenar from "@/components/BtnOrdenar";
 
 export default function Vitrine() {
     const [produtos, setProdutos] = useState([]);
-    const [isLoading, setIsLoading] = useState(true); // Estado para controlar o carregamento
+    const [produtosFiltrados, setProdutosFiltrados] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [filtrosAtivos, setFiltrosAtivos] = useState({
+        categoria: [],
+        classificacao: [],
+        preco: [], // Changed from marca to preco
+        regiao: []
+    });
 
     useEffect(() => {
-        // Fazendo o GET na API ao carregar a página
         fetch("https://localhost:8000/produtos/")
             .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Erro ao buscar produtos");
-                }
+                if (!response.ok) throw new Error("Erro ao buscar produtos");
                 return response.json();
             })
             .then((data) => {
                 if (data.produtos) {
-                    setProdutos(data.produtos); // Atualiza o estado com a lista de produtos
-                } else {
-                    console.error("Formato de resposta inesperado:", data);
+                    setProdutos(data.produtos);
+                    setProdutosFiltrados(data.produtos);
                 }
             })
-            .catch((error) => {
-                console.error("Erro:", error);
-            })
-            .finally(() => {
-                setIsLoading(false); // Finaliza o carregamento
-            });
+            .catch((error) => console.error("Erro:", error))
+            .finally(() => setIsLoading(false));
     }, []);
 
+    const handleFiltroChange = (categoria, { id, checked }) => {
+        setFiltrosAtivos(prevFiltros => {
+            const novosFiltros = { ...prevFiltros };
+            if (checked) {
+                novosFiltros[categoria] = [...novosFiltros[categoria], id];
+            } else {
+                novosFiltros[categoria] = novosFiltros[categoria].filter(item => item !== id);
+            }
+            return novosFiltros;
+        });
+    };
+
+    const checkPrecoRange = (preco, ranges) => {
+        const precoNum = parseFloat(preco);
+        return ranges.some(range => {
+            const [min, max] = range.split('-').map(Number);
+            if (!max) {
+                // For "501" case (above 500)
+                return precoNum >= min;
+            }
+            return precoNum >= min && precoNum <= max;
+        });
+    };
+
+    useEffect(() => {
+        const temFiltrosAtivos = Object.values(filtrosAtivos).some(filtro => filtro.length > 0);
+        
+        if (!temFiltrosAtivos) {
+            setProdutosFiltrados(produtos);
+            return;
+        }
+
+        const produtosFiltrados = produtos.filter(produto => {
+            return Object.entries(filtrosAtivos).every(([categoria, valores]) => {
+                if (valores.length === 0) return true;
+                
+                const getValue = (prop) => (produto[prop] || '').toLowerCase();
+                
+                switch (categoria) {
+                    case 'categoria':
+                        return valores.includes(getValue('categoria'));
+                    case 'classificacao':
+                        return valores.includes(getValue('classificacao'));
+                    case 'preco':
+                        return checkPrecoRange(produto.preco, valores);
+                    case 'regiao':
+                        return valores.includes(getValue('regiao'));
+                    default:
+                        return true;
+                }
+            });
+        });
+
+        setProdutosFiltrados(produtosFiltrados);
+    }, [filtrosAtivos, produtos]);
+
     if (isLoading) {
-        // Exibe apenas o ícone de carregamento enquanto os dados estão sendo carregados
         return (
             <div className="flex justify-center items-center h-screen">
                 <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-white"></div>
@@ -66,10 +120,9 @@ export default function Vitrine() {
             </div>
 
             <div className="w-full h-auto px-4 sm:px-8 lg:px-16 bg-[#000002] flex flex-row items-center justify-center gap-5 flex-2/5">
-                <Filtragem></Filtragem>
-
+                <Filtragem onFiltroChange={handleFiltroChange} />
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {produtos.map((produto) => (
+                    {produtosFiltrados.map((produto) => (
                         <CardProd key={produto.idProduto} produto={produto} />
                     ))}
                 </div>
