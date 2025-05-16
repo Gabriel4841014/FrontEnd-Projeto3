@@ -13,8 +13,8 @@ export default function Topo() {
             <nav className="flex items-center justify-between pr-10 p-5 gap-10">
                 <a className='text-[20px]' href='/'>Home</a>
                 <a className='text-[20px]' href='/vitrine'>Vinhos</a>
-                <a className='text-[20px]' href='#'>Sobre nós</a>
-                <a className='text-[20px]' href='#'>Contato</a>
+                <a className='text-[20px]' href='/sobre'>Sobre nós</a>
+                <a className='text-[20px]' href='/contato'>Contato</a>
 
                 <a className='text-[28px]' href='#'> <PiShoppingCartThin /> </a>
                 <a className='text-[28px]' href='#'> <CiUser /> </a>
