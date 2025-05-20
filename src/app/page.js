@@ -44,7 +44,7 @@ export default function Home() {
         <LadingPage />
 
         <div className="flex flex-col justify-center items-center p-4 ">
-          <h3 className="md:text-3xl text-center mt-8 mb-5 text-[#E1D5C2]">Saiba como escolher o vinho ideal para você!</h3>
+          <h3 className="md:text-4xl text-center mt-8 mb-10 text-[#E1D5C2]">Saiba como escolher o vinho ideal para você!</h3>
           <div className="flex gap-5 flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4 mb-12">
 
             <div className="bg-[#260401] p-6 rounded-lg text-center w-100 h-50">
@@ -52,7 +52,7 @@ export default function Home() {
             </div>
 
             <div className="bg-[#260401] p-6 rounded-lg text-center w-100 h-50 mb-20">
-              <p className="text-[#E1D5C2] ">Para quem gosta de algo mais intenso:</p> O vinho tinto é ideal. Com sabores mais encorpados e notas de frutas escuras e especiarias, ele proporciona uma experiência rica e marcante para quem aprecia vinhos com mais personalidade.
+              <p className="text-[#E1D5C2] mb-2 text-[20px]">Para quem gosta de algo mais intenso:</p> O vinho tinto é ideal. Com sabores mais encorpados e notas de frutas escuras e especiarias, ele proporciona uma experiência rica e marcante para quem aprecia vinhos com mais personalidade.
             </div>
 
             <div className="bg-[#260401] p-6 rounded-lg text-center w-100 h-50">
@@ -60,7 +60,7 @@ export default function Home() {
             </div>
           </div>
 
-          <h1 className="text-center md:text-3xl mb-8 text-[#E1D5C2] mt-25">Descubra os vinhos mais especiais da nossa seleção!</h1>
+          <h1 className="text-center md:text-4xl mb-8 text-[#E1D5C2] mt-25">Descubra os vinhos mais especiais da nossa seleção!</h1>
 
           <div className="grid gap-8 w-2/4 mt-15">
             <div className="bg-[#20232A] rounded-lg overflow-hidden flex flex-col md:flex-row mb-5">

@@ -7,10 +7,10 @@ import BtnOrdenar from "@/components/BtnOrdenar";
 import BtnVoltar from "@/components/BtnVoltar";
 
 export default function Vitrine() {
-const [produtos, setProdutos] = useState([]);
-const [produtosFiltrados, setProdutosFiltrados] = useState([]);
+    const [produtos, setProdutos] = useState([]);
+    const [produtosFiltrados, setProdutosFiltrados] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-const [sortType, setSortType] = useState('default');
+    const [sortType, setSortType] = useState('default');
     const [filtrosAtivos, setFiltrosAtivos] = useState({
         categoria: [],
         classificacao: [],
@@ -19,10 +19,10 @@ const [sortType, setSortType] = useState('default');
     });
 
     useEffect(() => {
-                fetch("https://localhost:8000/produtos/")
+        fetch("https://localhost:8000/produtos/")
             .then((response) => {
                 if (!response.ok) throw new Error("Erro ao buscar produtos");
-                                return response.json();
+                return response.json();
             })
             .then((data) => {
                 if (data.produtos) {
@@ -51,7 +51,7 @@ const [sortType, setSortType] = useState('default');
         return ranges.some(range => {
             const [min, max] = range.split('-').map(Number);
             if (!max) {
-                                return precoNum >= min;
+                return precoNum >= min;
             }
             return precoNum >= min && precoNum <= max;
         });
@@ -59,7 +59,7 @@ const [sortType, setSortType] = useState('default');
 
     useEffect(() => {
         const temFiltrosAtivos = Object.values(filtrosAtivos).some(filtro => filtro.length > 0);
-        
+
         if (!temFiltrosAtivos) {
             setProdutosFiltrados(produtos);
             return;
@@ -70,7 +70,7 @@ const [sortType, setSortType] = useState('default');
                 if (valores.length === 0) return true;
 
                 const getValue = (prop) => (produto[prop] || '').toLowerCase();
-                
+
                 switch (categoria) {
                     case 'categoria':
                         return valores.includes(getValue('categoria'));
@@ -109,22 +109,22 @@ const [sortType, setSortType] = useState('default');
     };
 
     if (isLoading) {
-                return (
+        return (
             <div className="flex justify-center items-center h-screen">
                 <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-white"></div>
             </div>
         );
     }
-    
+
     return (
         <div className="flex flex-col justify-center items-center p-4">
             <div className="flex flex-col fixed top-0 left-0 w-full h-20 bg-black shadow-lg uppercase">
-                         <BtnVoltar />
-                </div>
+                <BtnVoltar />
+            </div>
 
             <div className="max-w-[1380px] h-auto container sm:px-10 flex flex-col">
                 <div className="w-full h-auto px-4 sm:px-8 flex flex-row justify-between">
-                                        <div>
+                    <div>
                         <h2 className="text-[#ffffff] text-2xl font-['Gilda_Display'] mt-20 mb-0">
                             Mostrando {produtosFiltrados.length} de {produtos.length}
                         </h2>
@@ -142,7 +142,7 @@ const [sortType, setSortType] = useState('default');
                         <CardProd key={produto.idProduto} produto={produto} />
                     ))}
                 </div>
-                    </div>
-                    </div>
+            </div>
+        </div>
     );
 }

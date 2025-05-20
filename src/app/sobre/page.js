@@ -31,7 +31,7 @@ export default function Sobre() {
 
                     {/* Missão */}
                     <div className="flex justify-center items-center text-center">
-                        <div className="w-[600px] h-96 bg-[#260401] p-27">
+                        <div className="w-[600px] h-96 bg-[#20232A] p-27">
                             <p className="w-36 h-10 mb-5 justify-start text-[#E1D5C2] text-5xl font-['Gilda_Display']">Missão</p>
                             <p className="text-left text-[#FFFFFF] text-2xl font-['Gilda_Display']">Oferecer uma experiência única na compra de vinhos, com qualidade, conveniência e entrega rápida, tornando cada degustação especial.</p>
                         </div>
@@ -43,7 +43,7 @@ export default function Sobre() {
                     <div className="flex justify-center items-center text-center -mt-10">
                         <Image className="w-[600px] h-96 bg-black/20" src={Visao} alt="Imagem de um copo de vinho tinto" />
 
-                        <div className="w-[600px] h-96 bg-[#260401] p-27">
+                        <div className="w-[600px] h-96 bg-[#20232A] p-27">
                             <p className="w-160 h-10 mb-5 justify-start text-[#E1D5C2] text-5xl font-['Gilda_Display']">Visão</p>
                             <p className="text-right text-[#FFFFFF] text-2xl font-['Gilda_Display']">Oferecer uma experiência única na compra de vinhos, com qualidade, conveniência e entrega rápida, tornando cada degustação especial.</p>
                         </div>
@@ -51,7 +51,7 @@ export default function Sobre() {
 
                     {/* Valores */}
                     <div className="flex justify-center items-center text-center -mt-10">
-                        <div className="w-[600px] h-96 bg-[#260401] p-27">
+                        <div className="w-[600px] h-96 bg-[#20232A] p-27">
                             <p className="w-36 h-10 mb-5 justify-start text-[#E1D5C2] text-5xl font-['Gilda_Display']">Valores</p>
                             <p className="text-left text-[#FFFFFF] text-2xl font-['Gilda_Display']">Oferecer uma experiência única na compra de vinhos, com qualidade, conveniência e entrega rápida, tornando cada degustação especial.</p>
                         </div>

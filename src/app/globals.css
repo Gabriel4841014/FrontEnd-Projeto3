@@ -1,12 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Gilda+Display&display=swap');
 @import "tailwindcss";
 
-@layer utilities {
-  
-}
+@layer utilities {}
 
 @theme {
-  --font-roboto: "Gilda Display", sans-serif; 
+  --font-roboto: "Gilda Display", sans-serif;
 }
 
 
@@ -27,4 +25,22 @@
 body {
   background: var(--background);
   color: var(--white);
+}
+
+::-webkit-scrollbar {
+  width: 10px; /* largura da barra de rolagem */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #8f8f8f; /* cor do polegar (parte que desliza) */
+  border-radius: 5px; /* bordas arredondadas do polegar */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: white; /* cor do polegar quando o usuário passa o mouse sobre ele */
+}
+
+::-webkit-scrollbar-track {
+  background-color: #000002; /* cor da trilha da barra de rolagem */
+  border-radius: 5px;
 }
