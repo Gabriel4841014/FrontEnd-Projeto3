@@ -15,7 +15,7 @@ export default function Topo() {
                         { href: '/', label: 'Home' },
                         { href: '/vitrine', label: 'Vinhos' },
                         { href: '/sobre', label: 'Sobre nós' },
-                        { href: '/contato', label: 'Contato' }
+                        { href: '/contato', label: 'Contato' },
                     ].map((item, index) => (
                         <a
                             key={index}
@@ -27,7 +27,7 @@ export default function Topo() {
                         </a>
                     ))}
 
-                    <a className="text-[28px]" href="#"> <PiShoppingCartThin /> </a>
+                    <a className="text-[28px]" href="/carrinho"> <PiShoppingCartThin /> </a>
                     <a className="text-[28px]" href="#"> <CiUser /> </a>
                 </nav>
 
