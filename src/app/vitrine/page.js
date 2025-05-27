@@ -118,7 +118,7 @@ export default function Vitrine() {
 
     return (
         <div className="flex flex-col justify-center items-center p-4">
-            <div className="flex flex-col fixed top-0 left-0 w-full h-20 bg-black shadow-lg uppercase">
+            <div className="flex flex-col fixed top-0 left-0 w-full h-20 bg-black shadow-lg uppercase p-6">
                 <BtnVoltar />
             </div>
 
