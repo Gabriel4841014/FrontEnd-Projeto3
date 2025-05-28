@@ -28,7 +28,7 @@ export default function Topo() {
                     ))}
 
                     <a className="text-[28px]" href="/carrinho"> <PiShoppingCartThin /> </a>
-                    <a className="text-[28px]" href="#"> <CiUser /> </a>
+                    <a className="text-[28px]" href="entrarlogin"> <CiUser /> </a>
                 </nav>
 
             </div>

@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-
 import Missao from "../../../public/missao.png";
 import Visao from "../../../public/visao.png";
 import Valores from "../../../public/valores.png";

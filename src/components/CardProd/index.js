@@ -41,9 +41,8 @@ export default function CardProd({ produto }) {
                     </p>
                     <button
                         onClick={handleRedirect}
-                        className="w-8 h-8 text-[#3F0D09] text-[28px] items-center cursor-pointer  justify-center"
-                    >
-                        +
+                        className="w-8 h-8 text-[#3F0D09] text-[30px] items-center cursor-pointer justify-center"
+                    > +
                     </button>
                 </div>
             </div>
