@@ -1,190 +1,147 @@
-import React from "react";
+"use client"
+import CardProd from "@/components/CardProd";
+import React, { useState, useEffect } from "react";
+import { VscArrowLeft } from "react-icons/vsc";
+import Filtragem from "@/components/Filtragem";
+import BtnOrdenar from "@/components/BtnOrdenar";
+import BtnVoltar from "@/components/BtnVoltar";
 
 export default function Vitrine() {
+    const [produtos, setProdutos] = useState([]);
+    const [produtosFiltrados, setProdutosFiltrados] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [sortType, setSortType] = useState('default');
+    const [filtrosAtivos, setFiltrosAtivos] = useState({
+        categoria: [],
+        classificacao: [],
+        preco: [],
+        regiao: []
+    });
+
+    useEffect(() => {
+        fetch("https://localhost:8000/produtos/")
+            .then((response) => {
+                if (!response.ok) throw new Error("Erro ao buscar produtos");
+                return response.json();
+            })
+            .then((data) => {
+                if (data.produtos) {
+                    setProdutos(data.produtos);
+                    setProdutosFiltrados(data.produtos);
+                }
+            })
+            .catch((error) => console.error("Erro:", error))
+            .finally(() => setIsLoading(false));
+    }, []);
+
+    const handleFiltroChange = (categoria, { id, checked }) => {
+        setFiltrosAtivos(prevFiltros => {
+            const novosFiltros = { ...prevFiltros };
+            if (checked) {
+                novosFiltros[categoria] = [...novosFiltros[categoria], id];
+            } else {
+                novosFiltros[categoria] = novosFiltros[categoria].filter(item => item !== id);
+            }
+            return novosFiltros;
+        });
+    };
+
+    const checkPrecoRange = (preco, ranges) => {
+        const precoNum = parseFloat(preco);
+        return ranges.some(range => {
+            const [min, max] = range.split('-').map(Number);
+            if (!max) {
+                return precoNum >= min;
+            }
+            return precoNum >= min && precoNum <= max;
+        });
+    };
+
+    useEffect(() => {
+        const temFiltrosAtivos = Object.values(filtrosAtivos).some(filtro => filtro.length > 0);
+
+        if (!temFiltrosAtivos) {
+            setProdutosFiltrados(produtos);
+            return;
+        }
+
+        const produtosFiltrados = produtos.filter(produto => {
+            return Object.entries(filtrosAtivos).every(([categoria, valores]) => {
+                if (valores.length === 0) return true;
+
+                const getValue = (prop) => (produto[prop] || '').toLowerCase();
+
+                switch (categoria) {
+                    case 'categoria':
+                        return valores.includes(getValue('categoria'));
+                    case 'classificacao':
+                        return valores.includes(getValue('classificacao'));
+                    case 'preco':
+                        return checkPrecoRange(produto.preco, valores);
+                    case 'regiao':
+                        return valores.includes(getValue('regiao'));
+                    default:
+                        return true;
+                }
+            });
+        });
+
+        setProdutosFiltrados(produtosFiltrados);
+    }, [filtrosAtivos, produtos]);
+
+    const handleSort = (type) => {
+        setSortType(type);
+        const sortedProducts = [...produtosFiltrados].sort((a, b) => {
+            switch (type) {
+                case 'price-asc':
+                    return parseFloat(a.preco) - parseFloat(b.preco);
+                case 'price-desc':
+                    return parseFloat(b.preco) - parseFloat(a.preco);
+                case 'name-asc':
+                    return a.nome.localeCompare(b.nome);
+                case 'name-desc':
+                    return b.nome.localeCompare(a.nome);
+                default:
+                    return 0;
+            }
+        });
+        setProdutosFiltrados(sortedProducts);
+    };
+
+    if (isLoading) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-white"></div>
+            </div>
+        );
+    }
 
     return (
-        <div className="w-full h-auto px-4 sm:px-8 lg:px-16 py-10 bg-[#000002] flex flex-col items-center">
-            <p className="text-[#E1D5C2] text-2xl sm:text-3xl lg:text-4xl font-['Gilda_Display'] mt-2 text-center">
-                Nossos produtos mais vendidos
-            </p>
+        <div className="flex flex-col justify-center items-center p-4">
+            <div className="flex flex-col fixed top-0 left-0 w-full h-20 bg-black shadow-lg uppercase p-6">
+                <BtnVoltar />
+            </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
-                {/* Produto 1 */}
-                <div className="w-full h-auto bg-[#EAE5E1] rounded-[5px] p-6">
-                    <img className="w-48 h-60 mx-auto" src="vinho1.png" alt="Vinho 1" />
-                    <p className="w-50 h-8 justify-start text-[#3F0D09] text-sm font-['Gilda_Display'] mt-2">Luiz Argenta LA Jovem Shiraz</p>
-                    <div className="w-full h-[1px] bg-[#3F0D09] mt-3"></div>
-                    <div className="flex items-center justify-between mt-3">
-                        <p className="text-[#3F0D09] text-xl font-['Gilda_Display']">R$ 144,00</p>
-                        <button className="w-8 h-8 text-[#3F0D09] text-[29px] flex items-center justify-center">+</button>
+            <div className="max-w-[1380px] h-auto container sm:px-10 flex flex-col">
+                <div className="w-full h-auto px-4 sm:px-8 flex flex-row justify-between">
+                    <div>
+                        <h2 className="text-[#ffffff] text-2xl font-['Gilda_Display'] mt-20 mb-0">
+                            Mostrando {produtosFiltrados.length} de {produtos.length}
+                        </h2>
                     </div>
+                    <BtnOrdenar onSort={handleSort} />
                 </div>
 
-                {/* Produto 2 */}
-                <div className="w-full h-auto bg-[#EAE5E1] rounded-[5px] p-6">
-                    <img className="w-48 h-60 mx-auto" src="vinho2.png" alt="Vinho 2" />
-                    <p className="w-50 h-8 justify-start text-[#3F0D09] text-sm font-['Gilda_Display'] mt-2">Luiz Argenta LA Clássico Pinot Noir I.P.</p>
-                    <div className="w-full h-[1px] bg-[#3F0D09] mt-3"></div>
-                    <div className="flex items-center justify-between mt-3">
-                        <p className="text-[#3F0D09] text-xl font-['Gilda_Display']">R$ 98,00</p>
-                        <button className="w-8 h-8 text-[#3F0D09] text-[29px] flex items-center justify-center">+</button>
-                    </div>
-                </div>
+                <div className="h-0.5 w-full bg-white mb-5"></div>
+            </div>
 
-                {/* Produto 3 */}
-                <div className="w-full h-auto bg-[#EAE5E1] rounded-[5px] p-6">
-                    <img className="w-48 h-60 mx-auto" src="vinho3.png" alt="Vinho 3" />
-                    <p className="w-50 h-8 justify-start text-[#3F0D09] text-sm font-['Gilda_Display'] mt-2">Don Laurindo Don Tannat</p>
-                    <div className="w-full h-[1px] bg-[#3F0D09] mt-3"></div>
-                    <div className="flex items-center justify-between mt-3">
-                        <p className="text-[#3F0D09] text-xl font-['Gilda_Display']">R$ 265,00</p>
-                        <button className="w-8 h-8 text-[#3F0D09] text-[29px] flex items-center justify-center">+</button>
-                    </div>
+            <div className="w-full h-auto px-4 sm:px-8 lg:px-16 bg-[#000002] flex flex-row items-center justify-center gap-5 flex-2/5">
+                <Filtragem onFiltroChange={handleFiltroChange} />
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {produtosFiltrados.map((produto) => (
+                        <CardProd key={produto.idProduto} produto={produto} />
+                    ))}
                 </div>
-
-                {/* Produto 4 */}
-                <div className="w-full h-auto bg-[#EAE5E1] rounded-[5px] p-6">
-                    <img className="w-48 h-60 mx-auto" src="vinho4.png" alt="Vinho 4" />
-                    <p className="w-50 h-8 justify-start text-[#3F0D09] text-sm font-['Gilda_Display'] mt-2">Primeira Estrada Gran Reserva Syrah</p>
-                    <div className="w-full h-[1px] bg-[#3F0D09] mt-3"></div>
-                    <div className="flex items-center justify-between mt-3">
-                        <p className="text-[#3F0D09] text-xl font-['Gilda_Display']">R$ 318,00</p>
-                        <button className="w-8 h-8 text-[#3F0D09] text-[29px] flex items-center justify-center">+</button>
-                    </div>
-                </div>
-
-                {/* Produto 5 */}
-                <div className="w-full h-auto bg-[#EAE5E1] rounded-[5px] p-6">
-                    <img className="w-48 h-60 mx-auto" src="vinho5.png" alt="Vinho 1" />
-                    <p className="w-50 h-8 justify-start text-[#3F0D09] text-sm font-['Gilda_Display'] mt-2">Tempos de Góes Philosophia Cabernet Franc</p>
-                    <div className="w-full h-[1px] bg-[#3F0D09] mt-3"></div>
-                    <div className="flex items-center justify-between mt-3">
-                        <p className="text-[#3F0D09] text-xl font-['Gilda_Display']">R$ 179,00</p>
-                        <button className="w-8 h-8 text-[#3F0D09] text-[29px] flex items-center justify-center">+</button>
-                    </div>
-                </div>
-
-                {/* Produto 6 */}
-                <div className="w-full h-auto bg-[#EAE5E1] rounded-[5px] p-6">
-                    <img className="w-48 h-60 mx-auto" src="vinho6.png" alt="Vinho 2" />
-                    <p className="w-50 h-8 justify-start text-[#3F0D09] text-sm font-['Gilda_Display'] mt-2">Tempos de Góes Míneres Syrah</p>
-                    <div className="w-full h-[1px] bg-[#3F0D09] mt-3"></div>
-                    <div className="flex items-center justify-between mt-3">
-                        <p className="text-[#3F0D09] text-xl font-['Gilda_Display']">R$ 98,00</p>
-                        <button className="w-8 h-8 text-[#3F0D09] text-[29px] flex items-center justify-center">+</button>
-                    </div>
-                </div>
-
-                {/* Produto 7 */}
-                <div className="w-full h-auto bg-[#EAE5E1] rounded-[5px] p-6">
-                    <img className="w-48 h-60 mx-auto" src="vinho7.png" alt="Vinho 3" />
-                    <p className="w-50 h-8 justify-start text-[#3F0D09] text-sm font-['Gilda_Display'] mt-2">Valparaiso Vitale Sangiovese</p>
-                    <div className="w-full h-[1px] bg-[#3F0D09] mt-3"></div>
-                    <div className="flex items-center justify-between mt-3">
-                        <p className="text-[#3F0D09] text-xl font-['Gilda_Display']">R$ 128,00</p>
-                        <button className="w-8 h-8 text-[#3F0D09] text-[29px] flex items-center justify-center">+</button>
-                    </div>
-                </div>
-
-                {/* Produto 8 */}
-                <div className="w-full h-auto bg-[#EAE5E1] rounded-[5px] p-6">
-                    <img className="w-48 h-60 mx-auto" src="vinho8.png" alt="Vinho 4" />
-                    <p className="w-50 h-8 justify-start text-[#3F0D09] text-sm font-['Gilda_Display'] mt-2">Garibaldi Precioso Tinto Demi-Sec</p>
-                    <div className="w-full h-[1px] bg-[#3F0D09] mt-3"></div>
-                    <div className="flex items-center justify-between mt-3">
-                        <p className="text-[#3F0D09] text-xl font-['Gilda_Display']">R$ 98,90</p>
-                        <button className="w-8 h-8 text-[#3F0D09] text-[29px] flex items-center justify-center">+</button>
-                    </div>
-                </div>
-
-                {/* Produto 9 */}
-                <div className="w-full h-auto bg-[#EAE5E1] rounded-[5px] p-6">
-                    <img className="w-48 h-60 mx-auto" src="vinho9.png" alt="Vinho 1" />
-                    <p className="w-50 h-8 justify-start text-[#3F0D09] text-sm font-['Gilda_Display'] mt-2">Valmarino V3 Corte 1 Toscano</p>
-                    <div className="w-full h-[1px] bg-[#3F0D09] mt-3"></div>
-                    <div className="flex items-center justify-between mt-3">
-                        <p className="text-[#3F0D09] text-xl font-['Gilda_Display']">R$ 112,00</p>
-                        <button className="w-8 h-8 text-[#3F0D09] text-[29px] flex items-center justify-center">+</button>
-                    </div>
-                </div>
-
-                {/* Produto 10 */}
-                <div className="w-full h-auto bg-[#EAE5E1] rounded-[5px] p-6">
-                    <img className="w-48 h-60 mx-auto" src="vinho10.png" alt="Vinho 2" />
-                    <p className="w-50 h-8 justify-start text-[#3F0D09] text-sm font-['Gilda_Display'] mt-2">Merlot L.A. Cave</p>
-                    <div className="w-full h-[1px] bg-[#3F0D09] mt-3"></div>
-                    <div className="flex items-center justify-between mt-3">
-                        <p className="text-[#3F0D09] text-xl font-['Gilda_Display']">R$ 211,00</p>
-                        <button className="w-8 h-8 text-[#3F0D09] text-[29px] flex items-center justify-center">+</button>
-                    </div>
-                </div>
-
-                {/* Produto 11 */}
-                <div className="w-full h-auto bg-[#EAE5E1] rounded-[5px] p-6">
-                    <img className="w-48 h-60 mx-auto" src="vinho11.png" alt="Vinho 3" />
-                    <p className="w-50 h-8 justify-start text-[#3F0D09] text-sm font-['Gilda_Display'] mt-2">Salvattore Reserva Blend</p>
-                    <div className="w-full h-[1px] bg-[#3F0D09] mt-3"></div>
-                    <div className="flex items-center justify-between mt-3">
-                        <p className="text-[#3F0D09] text-xl font-['Gilda_Display']">R$ 330,00</p>
-                        <button className="w-8 h-8 text-[#3F0D09] text-[29px] flex items-center justify-center">+</button>
-                    </div>
-                </div>
-
-                {/* Produto 12 */}
-                <div className="w-full h-auto bg-[#EAE5E1] rounded-[5px] p-6">
-                    <img className="w-48 h-60 mx-auto" src="vinho12.png" alt="Vinho 4" />
-                    <p className="w-50 h-8 justify-start text-[#3F0D09] text-sm font-['Gilda_Display'] mt-2">Castellamare Barricas</p>
-                    <div className="w-full h-[1px] bg-[#3F0D09] mt-3"></div>
-                    <div className="flex items-center justify-between mt-3">
-                        <p className="text-[#3F0D09] text-xl font-['Gilda_Display']">R$ 180,00</p>
-                        <button className="w-8 h-8 text-[#3F0D09] text-[29px] flex items-center justify-center">+</button>
-                    </div>
-                </div>
-
-                {/* Produto 13 */}
-                <div className="w-full h-auto bg-[#EAE5E1] rounded-[5px] p-6">
-                    <img className="w-48 h-60 mx-auto" src="vinho13.png" alt="Vinho 1" />
-                    <p className="w-50 h-8 justify-start text-[#3F0D09] text-sm font-['Gilda_Display'] mt-2">Aurora Saperavi</p>
-                    <div className="w-full h-[1px] bg-[#3F0D09] mt-3"></div>
-                    <div className="flex items-center justify-between mt-3">
-                        <p className="text-[#3F0D09] text-xl font-['Gilda_Display']">R$ 129,90</p>
-                        <button className="w-8 h-8 text-[#3F0D09] text-[29px] flex items-center justify-center">+</button>
-                    </div>
-                </div>
-
-                {/* Produto 14 */}
-                <div className="w-full h-auto bg-[#EAE5E1] rounded-[5px] p-6">
-                    <img className="w-48 h-60 mx-auto" src="vinho14.png" alt="Vinho 2" />
-                    <p className="w-50 h-8 justify-start text-[#3F0D09] text-sm font-['Gilda_Display'] mt-2">Gran Reserva Touriga Nacional</p>
-                    <div className="w-full h-[1px] bg-[#3F0D09] mt-3"></div>
-                    <div className="flex items-center justify-between mt-3">
-                        <p className="text-[#3F0D09] text-xl font-['Gilda_Display']">R$ 108,00</p>
-                        <button className="w-8 h-8 text-[#3F0D09] text-[29px] flex items-center justify-center">+</button>
-                    </div>
-                </div>
-
-                {/* Produto 15 */}
-                <div className="w-full h-auto bg-[#EAE5E1] rounded-[5px] p-6">
-                    <img className="w-48 h-60 mx-auto" src="vinho15.png" alt="Vinho 3" />
-                    <p className="w-50 h-8 justify-start text-[#3F0D09] text-sm font-['Gilda_Display'] mt-2">Vinho Tinto Salton Paradoxo Merlot/Cab Franc/Marselan</p>
-                    <div className="w-full h-[1px] bg-[#3F0D09] mt-3"></div>
-                    <div className="flex items-center justify-between mt-3">
-                        <p className="text-[#3F0D09] text-xl font-['Gilda_Display']">R$ 299,00</p>
-                        <button className="w-8 h-8 text-[#3F0D09] text-[29px] flex items-center justify-center">+</button>
-                    </div>
-                </div>
-
-                {/* Produto 16 */}
-                <div className="w-full h-auto bg-[#EAE5E1] rounded-[5px] p-6">
-                    <img className="w-48 h-60 mx-auto" src="vinho16.png" alt="Vinho 4" />
-                    <p className="w-50 h-8 justify-start text-[#3F0D09] text-sm font-['Gilda_Display'] mt-2">Vinho Tinto Salton Paradoxo Merlot/Cab Franc/Marselan</p>
-                    <div className="w-full h-[1px] bg-[#3F0D09] mt-3"></div>
-                    <div className="flex items-center justify-between mt-3">
-                        <p className="text-[#3F0D09] text-xl font-['Gilda_Display']">R$ 65,00</p>
-                        <button className="w-8 h-8 text-[#3F0D09] text-[29px] flex items-center justify-center">+</button>
-                    </div>
-                </div>
-
             </div>
         </div>
     );

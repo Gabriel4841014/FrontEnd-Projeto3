@@ -54,17 +54,17 @@ export default function Footer() {
                     <div className="mt-5 space-y-3">
                         <div className="flex items-center gap-2">
                             <IoLogoInstagram className="text-[22px]" />
-                            <p className="text-sm sm:text-base font-['Gilda_Display']">@vivant</p>
+                           <a target='_blank' href='https://www.instagram.com/'> <p className="text-sm sm:text-base font-['Gilda_Display']">@vivant</p> </a> 
                         </div>
 
                         <div className="flex items-center gap-2">
                             <SlSocialFacebook className="text-[22px]" />
-                            <p className="text-sm sm:text-base font-['Gilda_Display']">@vivant</p>
+                           <a target='_blank' href='https://www.facebook.com/?locale=pt_BR'> <p className="text-sm sm:text-base font-['Gilda_Display']">@vivant</p> </a>
                         </div>
                         
                         <div className="flex items-center gap-2">
                             <PiTwitterLogoLight className="text-[22px]" />
-                            <p className="text-sm sm:text-base font-['Gilda_Display']">@vivant</p>
+                           <a target='_blank' href='https://x.com/?lang=pt'> <p className="text-sm sm:text-base font-['Gilda_Display']">@vivant</p> </a>
                         </div>
                     </div>
         

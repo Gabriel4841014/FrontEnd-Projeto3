@@ -7,15 +7,14 @@ export default function LadingPage() {
             <img className="absolute pl-70 brightness-65" src="backgroung-home.png" />
 
             <div className="relative z-10 max-w-lg">
-                <p className="text-lg md:text-xl text-[#E1D5C2]">
+                <p className="text-lg md:text-2xl text-[#E1D5C2]">
                     Viva uma experiência única a cada gole.
                 </p>
-                <h1 className="text-4xl md:text-6xl mt-4 w-200">
+                <h1 className="text-4xl mb-8 md:text-6xl mt-4 w-200">
                     Desperte seus sentidos
                 </h1>
-                <button className="mt-6 px-6 py-3 bg-[#260401] text-[#E1D5C2] text-lg rounded">
-                    Conheça nossa seleção de vinhos!
-                </button>
+                <a className=' px-6 py-3 bg-[#260401] text-[#E1D5C2] text-lg rounded' href='/vitrine'>Conheça nossa seleção de vinhos!</a>
+                
                
 
             </div>
