@@ -118,12 +118,12 @@ export default function Vitrine() {
 
     return (
         <div className="flex flex-col justify-center items-center p-4">
-            <div className="flex flex-col fixed top-0 left-0 w-full h-20 bg-black shadow-lg uppercase p-6">
+            <div className="flex mb-20 flex-col fixed top-0 left-0 w-full h-20 bg-black shadow-lg uppercase p-6">
                 <BtnVoltar />
             </div>
 
             <div className="max-w-[1380px] h-auto container sm:px-10 flex flex-col">
-                <div className="w-full h-auto px-4 sm:px-8 flex flex-row justify-between">
+                <div className="w-full mt-20 h-auto px-4 sm:px-8 flex flex-row justify-between">
                     <div>
                         <h2 className="text-[#ffffff] text-2xl font-['Gilda_Display'] mt-20 mb-0">
                             Mostrando {produtosFiltrados.length} de {produtos.length}
