@@ -34,7 +34,7 @@ export default function EntrarLogin() {
                     <input
                         type="email"
                         placeholder="exemplo@gmail.com"
-                        className="mb-4 p-2 bg-[#EAE5E1] text-[#3F0D09CC] w-full rounded-[5px]" />
+                        className="mb-4 p-2 bg-[#EAE5E1] text-[#3F0D09CC] w-full rounded-[5px] outline-none" />
                 </div>
 
                 <div>
@@ -42,7 +42,7 @@ export default function EntrarLogin() {
                     <input
                         type="password"
                         placeholder="Senha"
-                        className="mb-4 p-2 bg-[#EAE5E1] text-[#3F0D09CC] w-full rounded-[5px] mt-3"
+                        className="mb-4 p-2 bg-[#EAE5E1] text-[#3F0D09CC] w-full rounded-[5px] mt-3 outline-none"
                     />
                 </div>
 
