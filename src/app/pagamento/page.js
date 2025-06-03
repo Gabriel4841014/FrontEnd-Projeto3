@@ -4,17 +4,25 @@ import React, { useState } from 'react';
 
 export default function Pagamento() {
     return (
-    <main className="flex w-full max-w-7xl ml-50 ">
-    <section className="flex-1 px-8 pt-8 max-w-4xl mt-30">
-      <a href="/" className=" text-[#d6c9b9] text-xl flex mb-6 ml-4 items-center">
+    <main className="flex w-full max-w-7xl">
+
+
+      <header className="mt-23 ml-10">
+      <a href="/carrinho" className=" text-[#d6c9b9] text-xl flex items-center">
         <FaArrowLeft />
         <span className='ml-2 '>Voltar</span>
       </a>
+      </header>
 
-      <h1 className="text-4xl font-normal mb-10">Finalize sua compra!</h1>
+
+    <section className="flex-1 px-8 pt-8 mt-30">
+
+      <h1 className="text-3xl mb-10">Finalize sua compra!</h1>
 
       <div className="flex items-center space-x-6 mb-12">
+        <a href="/pagamentoPix" className="flex items-center space-x-2">
         <button className="bg-[#22252a] text-[#d9cfc4] text-lg font-normal py-2.5 px-8 rounded-md select-none">PIX</button>
+        </a>
         <div className="h-6 border-l border-[#4a4a4a]"></div>
         <button className="bg-[#22252a] text-[#d9cfc4] text-lg font-normal py-2.5 px-8 rounded-md select-none">Cartão</button>
       </div>
@@ -30,7 +38,7 @@ export default function Pagamento() {
           </span>
         </label>
 
-        <div className="flex flex-col space-y-4">
+        <div className="flex flex-col space-y-4 ml-5 gap-3 -mt-11">
           <button className="bg-[#22252a] text-[#d9cfc4] text-xs font-normal py-2 px-4 rounded-md flex items-center space-x-2 select-none">
             <span>Adicionar novo endereço</span>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="#d9cfc4" strokeWidth="2">
@@ -44,10 +52,11 @@ export default function Pagamento() {
             <button className="bg-[#d9cfc4] text-black text-xs font-normal py-2 px-6 rounded-md select-none">Excluir</button>
           </div>
         </div>
+
       </div>
     </section>
 
-    <aside className="w-96 bg-[#e8e2dc] px-10 py-12 text-[#4a1f1f] font-normal text-lg leading-relaxed mt-30">
+    <aside className="w-95 bg-[#e8e2dc] px-10 py-12 text-[#4a1f1f] text-lg mt-30">
       <p className="mb-6 text-base">Detalhes da compra</p>
       <p className="text-5xl font-normal mb-10">R$ 900,00</p>
 
