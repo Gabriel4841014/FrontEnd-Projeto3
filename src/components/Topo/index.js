@@ -49,6 +49,10 @@ export default function Topo() {
             <div className="flex items-center justify-between">
                 <img className="h-12 w-22 ml-10" src="Vivanti.png" alt="Vivant Logo" />
                 <nav className="flex items-center justify-between pr-10 p-5 gap-10">
+                <a className='text-[20px]' href='/'>Home</a>
+                <a className='text-[20px]' href='/vitrine'>Vinhos</a>
+                <a className='text-[20px]' href='/sobre'>Sobre nós</a>
+                <a className='text-[20px]' href='/contato'>Contato</a>
                     <a className="text-[28px]" href="/carrinho">
                         <PiShoppingCartThin />
                     </a>
