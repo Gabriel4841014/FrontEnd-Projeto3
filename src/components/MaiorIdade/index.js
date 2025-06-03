@@ -47,12 +47,12 @@ export default function MaiorIdade() {
                         <div className="flex flex-col md:flex-row gap-4 justify-center">
                             <button
                                 onClick={() => handleResponse(true)}
-                                className="w-full md:w-50 h-10 p-2 bg-[#20232A] text-white rounded-[10px]"> Tenho 18 anos ou mais.
+                                className="w-full md:w-50 h-10 p-2 bg-[#20232A] text-white rounded-[10px]"> Tenho 18 anos ou mais
                             </button>
 
                             <button
                                 onClick={() => handleResponse(false)}
-                                className="w-full md:w-50 h-10 p-2 bg-[#20232A] text-white rounded-[10px]"> Sou menor de 18 anos.
+                                className="w-full md:w-50 h-10 p-2 bg-[#20232A] text-white rounded-[10px]"> Sou menor de 18 anos
                             </button>
                         </div>
 
