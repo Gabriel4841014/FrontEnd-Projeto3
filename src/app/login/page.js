@@ -6,6 +6,7 @@ import Image from "next/image";
 import BtnVoltar from "@/components/BtnVoltar";
 import LogoVivant from "../../../public/Vivanti.png";
 import Google from "../../../public/google.png";
+import Cookies from 'js-cookie';
 
 export default function EntrarLogin() {
     const [email, setEmail] = useState("");
@@ -21,7 +22,7 @@ export default function EntrarLogin() {
         }
     }, [isLoggedIn, router]);
 
-    const handleLogin = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
@@ -33,13 +34,18 @@ export default function EntrarLogin() {
                 body: JSON.stringify({ email, password }),
             });
 
+            const data = await response.json();
+
             if (response.ok) {
-                const data = await response.json();
+                // Store tokens and user data in cookies
+                Cookies.set('accessToken', data.accessToken);
+                Cookies.set('refreshToken', data.refreshToken);
+                Cookies.set('userData', JSON.stringify(data.user));
+                
                 console.log("Login successful:", data);
-                setIsLoggedIn(true); // Atualiza o estado para indicar que o login foi bem-sucedido
+                router.push('/profile');
             } else {
-                const errorData = await response.json();
-                setErrorMessage(errorData.message || "Erro ao realizar login.");
+                setErrorMessage(data.message || "Erro ao realizar login.");
             }
         } catch (error) {
             setErrorMessage("Erro ao conectar ao servidor.");
@@ -73,7 +79,7 @@ export default function EntrarLogin() {
                 <p className="justify-start text-[#E1D5C2] text-xl font-['Gilda_Display'] mb-4">Acesse sua conta</p>
                 <p className="justify-start text-[#EAE5E1] text-4xl font-['Gilda_Display'] mb-8">Bem vindo de volta!</p>
 
-                <form onSubmit={handleLogin}>
+                <form onSubmit={handleSubmit}>
                     <div>
                         <p className="w-16 justify-start text-[#E1D5C2] text-base font-['Gilda_Display']">E-mail</p>
                         <input

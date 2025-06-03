@@ -1,14 +1,66 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 import Image from "next/image";
 import BtnVoltar from "@/components/BtnVoltar";
 import LogoVivant from "../../../public/Vivanti.png";
 import Google from "../../../public/google.png";
 
 export default function EntrarLogin() {
-    return (
+    const router = useRouter();
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    });
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
+    const handleChange = (e) => {
+        setFormData(prev => ({
+            ...prev,
+            [e.target.name]: e.target.value
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError('');
+
+        try {
+            const response = await fetch('http://localhost:8000/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await response.json();
+           
+
+           
+            if (! (response.status === 201)) {
+                throw new Error(data.message || 'Erro ao fazer login');
+            }   
+
+
+            // Store tokens and user data in cookies
+            Cookies.set('accessToken', data.accessToken);
+            Cookies.set('refreshToken', data.refreshToken);
+            Cookies.set('userData', JSON.stringify(data.user));
+
+            router.push('/profile');
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
         <section className="flex h-screen mb-60">
             <div className="w-[43%] bg-[#20232A] text-white flex flex-col justify-center items-center p-10">
                 <div className=" w-full -mt-[130px]">
@@ -29,42 +81,44 @@ export default function EntrarLogin() {
                 <p className="justify-start text-[#E1D5C2] text-xl font-['Gilda_Display'] mb-4">Acesse sua conta</p>
                 <p className="justify-start text-[#EAE5E1] text-4xl font-['Gilda_Display'] mb-8">Bem vindo de volta!</p>
 
-                <div>
-                    <p class="w-16 justify-start text-[#E1D5C2] text-base font-['Gilda_Display']">E-mail</p>
-                    <input
-                        type="email"
-                        placeholder="exemplo@gmail.com"
-                        className="mb-4 p-2 bg-[#EAE5E1] text-[#3F0D09CC] w-full rounded-[5px] outline-none" />
-                </div>
+                {error && <p className="text-red-500 mb-4">{error}</p>}
 
-                <div>
-                    <p class="w-16 h-3.5 justify-start text-[#E1D5C2] text-base font-['Gilda_Display'] mt-3">Senha<br /></p>
-                    <input
-                        type="password"
-                        placeholder="Senha"
-                        className="mb-4 p-2 bg-[#EAE5E1] text-[#3F0D09CC] w-full rounded-[5px] mt-3 outline-none"
-                    />
-                </div>
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <p className="w-16 justify-start text-[#E1D5C2] text-base font-['Gilda_Display']">E-mail</p>
+                        <input
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            placeholder="exemplo@gmail.com"
+                            className="mb-4 p-2 bg-[#EAE5E1] text-[#3F0D09CC] w-full rounded-[5px] outline-none"
+                            required
+                        />
+                    </div>
 
-                <a href="#" className="justify-start text-stone-200 text-base font-normal font-['Gilda_Display'] mt-5 mb-5">Esqueceu sua senha?</a>
+                    <div>
+                        <p className="w-16 justify-start text-[#E1D5C2] text-base font-['Gilda_Display']">Senha</p>
+                        <input
+                            type="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            placeholder="Digite sua senha"
+                            className="mb-4 p-2 bg-[#EAE5E1] text-[#3F0D09CC] w-full rounded-[5px] outline-none"
+                            required
+                        />
+                    </div>
 
-                <div className="flex justify-center items-center">
-                    <button href="#" className="bg-[#20232A] text-[##FFFFFF] py-2 px-4 rounded-[5px] w-[70%] mb-2">Entrar</button>
-                </div>
-
-                <div className="flex items-center mb-4">
-                    <hr className="flex-grow border-gray-600" />
-                    <p className="mx-2">OU</p>
-                    <hr className="flex-grow border-gray-600" />
-                </div>
-
-                <div className="flex justify-center items-center">
-                    <button className="bg-[#EAE5E1] text-[#3F0D09CC] gap-3 py-2 px-4 rounded flex items-center justify-center">
-                        <Image src={Google} alt="Google Icon" width={24} height={24} className="mr-2" />
-                        Continuar com o Google
+                    <button 
+                        type="submit"
+                        disabled={loading}
+                        className="w-full p-2 bg-[#E1D5C2] text-black rounded-[5px] disabled:opacity-50"
+                    >
+                        {loading ? 'Entrando...' : 'Entrar'}
                     </button>
-                </div>
-            </div>      
+                </form>
+            </div>
         </section>
     );
-};
+}
