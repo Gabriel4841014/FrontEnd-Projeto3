@@ -1,17 +1,15 @@
 "use client";
 import { FaArrowLeft } from "react-icons/fa6";
 import React, { useState } from 'react';
+import BtnVoltar from "@/components/BtnVoltar";
 
 export default function Pagamento() {
     return (
     <main className="flex w-full max-w-7xl">
 
 
-      <header className="mt-23 ml-10">
-      <a href="/carrinho" className=" text-[#d6c9b9] text-xl flex items-center">
-        <FaArrowLeft />
-        <span className='ml-2 '>Voltar</span>
-      </a>
+      <header className="mt-5 mr-10">
+      <BtnVoltar />
       </header>
 
 
