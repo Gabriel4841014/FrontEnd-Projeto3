@@ -43,7 +43,7 @@ export default function EntrarLogin() {
                 Cookies.set('userData', JSON.stringify(data.user));
                 
                 console.log("Login successful:", data);
-                router.push('/profile');
+                router.push('/perfil');
             } else {
                 setErrorMessage(data.message || "Erro ao realizar login.");
             }

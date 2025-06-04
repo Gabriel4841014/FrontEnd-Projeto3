@@ -38,7 +38,7 @@ export default function Topo() {
         e.preventDefault();
         
         if (isUserLoggedIn()) {
-            router.push('/profile');
+            router.push('/perfil');
         } else {
             router.push('/login');
         }
