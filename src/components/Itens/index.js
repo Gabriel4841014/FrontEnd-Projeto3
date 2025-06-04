@@ -33,7 +33,7 @@ export function Itens() {
         />
       </div>
       
-      <div className="flex flex-col flex-grow text-xs md:text-base">
+      <div className="flex flex-col flex-grow text-xs md:text-lg">
         <span className="leading-tight max-w-[180px] md:max-w-[220px]">
           Sacramentos Sabina Syrah
         </span>
@@ -69,7 +69,7 @@ export function Itens() {
         </button>
       </div>
       
-      <span className="text-xs md:text-base flex items-center">
+      <span className="text-xs md:text-lg flex items-center">
        
         <span> R$500 </span>
         <GoTrash className="ml-5" />
