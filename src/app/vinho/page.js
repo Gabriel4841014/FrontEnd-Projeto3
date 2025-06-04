@@ -1,5 +1,6 @@
 "use client"
 import CardProd from "@/components/CardProd";
+import ReviewCard from "@/components/Review";
 import { useState } from "react";
 
 
@@ -12,12 +13,17 @@ export default function WineDetail() {
       <div className="bg-[#EAE5E1] rounded-md m-0 p-6 flex  w-[1312px] h-[679px]  flex-row space-y-6 justify-center">
     <div className="w-[1060px] py-[68px] flex row justify-center">
         <img src="vinho1.png" alt="Vinho" className="max-w-[441px] h-auto mx-auto md:mx-0" />
-        <div className="space-y-4">
-          <h1 className="text-xl font-semibold">Primeira Estrada Gran Reserva Syrah</h1>
-          <p className="text-neutral-400">750ml | Teor alcoólico: 14% | Safra: 2020</p>
-          <p className="text-2xl font-bold text-red-500">R$ 318,00</p>
+        <div className="space-y-4 my-auto ">
+          <h1 className="text-3xl text-[#3F0D09]">Primeira Estrada Gran Reserva Syrah</h1>
+          <div className="w-[80%] h-[2px] bg-[#260401]"></div>
+          <p className="text-[#260401] max-w-md">Produzido com as uvas do primeiro vinhedo de colheita de inverno, localizado em Três Corações/MG. O desafio da Vinícola foi atingir os limites expressivos do Terroir de Três Corações combinado com a essência da fruta com a nobreza do carvalho. Delicado e elegante, marcado por taninos redondos e poderosos. Um vinho que deixa no paladar uma sensação de equilíbrio e frescor.</p>
+          
+          <div className="flex flex-row space-x-5">
+            <p className="text-2xl font-thin text-[#3F0D09]">R$ 318,00</p>
+            <p className="text-md font-thin text-[#3F0D09] my-auto"> 750ml</p>
+          </div>
           <div className="flex space-x-4 items-center">
-            <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded flex items-center space-x-2">
+            <button className="bg-[#20232A] cursor-pointer text-white px-4 py-2 rounded flex items-center space-x-2">
       
               <span>Adicionar ao carrinho</span>
             </button>
@@ -34,7 +40,7 @@ export default function WineDetail() {
       </div>
 
       {/* Informações adicionais */}
-      <div className="bg-[#260401] rounded-2xl p-6 grid grid-cols-2 md:grid-cols-3 gap-20 text-md text-center">
+      <div className="bg-[#260401] rounded-xl p-6 grid grid-cols-2 md:grid-cols-3 gap-20 text-md text-center">
         <Info title="Classificação" content="Seco" />
         <Info title="Categoria" content="Tinto" />
         <Info title="Gustativo" content="Elegante, taninos sedosos, harmonioso, equilibrado." />
@@ -48,30 +54,20 @@ export default function WineDetail() {
 
       {/* Avaliação */}
       <div className="space-y-4">
-        <h2 className="text-lg font-semibold text-center">Experimente e compartilhe sua opinião!</h2>
-        <button className="mx-auto block bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded">
-          Quero avaliar
+        <h2 className="text-3xl text-[#E1D5C2] text-center">Experimente e compartilhe sua opinião!</h2>
+        <p className="text-center text-neutral-400">O que achou deste vinho? Sua avaliação é importante para nós!</p>
+        <button className="mx-auto block bg-[#EAE5E1] text-black px-29 py-2 rounded">
+          Quero avaliar :)
         </button>
 
-        <h3 className="text-md font-semibold">Avaliações e Comentários</h3>
+        <h3 className="text-2xl text-[#E1D5C2]">Avaliações e Comentários</h3>
         <div className="space-y-4">
-          <Review 
-            name="Liza Ventura" 
-            rating={5} 
-            text="Ótimo vinho! Ideal para ocasiões especiais!" 
-          />
-          <Review 
-            name="Sofia Montealto" 
-            rating={4} 
-            text="Vinho encorpado, bem equilibrado." 
-          />
-          <Review 
-            name="Theo Alvarenga" 
-            rating={5} 
-            text="Um Syrah excelente, surpreendeu!" 
-          />
+          
+          <ReviewCard></ReviewCard>
+          <ReviewCard></ReviewCard>
+          <ReviewCard></ReviewCard>
         </div>
-        <button className="mx-auto block bg-neutral-700 hover:bg-neutral-600 text-white px-6 py-2 rounded">
+        <button className="mx-auto block bg-neutral-700 hover:bg-neutral-600 cursor-pointer text-white px-6 py-2 rounded">
           Mostrar Mais
         </button>
       </div>
