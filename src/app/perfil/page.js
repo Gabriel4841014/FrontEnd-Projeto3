@@ -12,8 +12,8 @@ const Profile = () => {
 
             <div className="mt-10">
                 <div className="">
-                    <h1 class="text-[#E1D5C2] text-3xl font-['Gilda_Display']">Olá, [Nome do Usuário]!</h1>
-                    <p class="w-85 text-[#EAE5E1] font-['Gilda_Display'] mt-3 mb-15">Bem-vindo ao seu espaço exclusivo. Aqui você pode gerenciar seus dados e acompanhar seus pedidos.</p>
+                    <h1 className="text-[#E1D5C2] text-3xl font-['Gilda_Display']">Olá, [Nome do Usuário]!</h1>
+                    <p className="w-85 text-[#EAE5E1] font-['Gilda_Display'] mt-3 mb-15">Bem-vindo ao seu espaço exclusivo. Aqui você pode gerenciar seus dados e acompanhar seus pedidos.</p>
                 </div>
 
                 <nav className="w-1/4 p-4 bg-[#000002]">
@@ -31,14 +31,14 @@ const Profile = () => {
 
                     <div className="flex items-center gap-132 mb-10">
                         <div className="flex items-center gap-6 ml-4">
-                            <div class="w-20 h-20 bg-zinc-300 rounded-full"></div>
-                            <p class="justify-start text-white text-xl font-['Gilda_Display']">[Nome do usuário]</p>
+                            <div className="w-20 h-20 bg-zinc-300 rounded-full"></div>
+                            <p className="justify-start text-white text-xl font-['Gilda_Display']">[Nome do usuário]</p>
                         </div>
 
-                        <button class="w-30 h-8 p-2 bg-[#20232A] rounded-[5px]">
+                        <button className="w-30 h-8 p-2 bg-[#20232A] rounded-[5px]">
                             <div className="flex items-center gap-2 justify-center">
                                 <CiEdit className="size-4 text-[#FFFFFF]" />
-                                <a href="#" class="text-[#EAE5E1] text-xs font-['Gilda_Display']">Editar perfil</a>
+                                <a href="#" className="text-[#EAE5E1] text-xs font-['Gilda_Display']">Editar perfil</a>
                             </div>
                         </button>
                     </div>
@@ -52,8 +52,8 @@ const Profile = () => {
                         <InputField label="Número de Telefone" value="(11) 94567-1252" />
                     </div>
 
-                    <button class="w-40 h-12 bg-[#20232A] rounded-[5px] items-center justify-center mt-15 ml-107 mr-107">
-                        <p href="#" class="text-[#EAE5E1] text-[17px] font-['Gilda_Display']">Salvar mudanças</p>
+                    <button className="w-40 h-12 bg-[#20232A] rounded-[5px] items-center justify-center mt-15 ml-107 mr-107">
+                        <p href="#" className="text-[#EAE5E1] text-[17px] font-['Gilda_Display']">Salvar mudanças</p>
                     </button>
 
                 </div>

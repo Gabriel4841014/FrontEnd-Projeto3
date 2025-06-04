@@ -19,7 +19,7 @@ export default function Topo() {
             const base64Url = accessToken.split('.')[1];
             const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
             const payload = JSON.parse(window.atob(base64));
-            
+
             if (payload.exp * 1000 < Date.now()) {
                 // Token expirado, limpar cookies
                 Cookies.remove('accessToken');
@@ -27,7 +27,7 @@ export default function Topo() {
                 Cookies.remove('userData');
                 return false;
             }
-            
+
             return true;
         } catch (error) {
             return false;
@@ -36,9 +36,9 @@ export default function Topo() {
 
     const handleProfileClick = (e) => {
         e.preventDefault();
-        
+
         if (isUserLoggedIn()) {
-            router.push('/profile');
+            router.push('/perfil');
         } else {
             router.push('/login');
         }
@@ -49,18 +49,18 @@ export default function Topo() {
             <div className="flex items-center justify-between">
                 <img className="h-12 w-22 ml-10" src="Vivanti.png" alt="Vivant Logo" />
                 <nav className="flex items-center justify-between pr-10 p-5 gap-10">
-                <a className='text-[20px]' href='/'>Home</a>
-                <a className='text-[20px]' href='/vitrine'>Vinhos</a>
-                <a className='text-[20px]' href='/sobre'>Sobre nós</a>
-                <a className='text-[20px]' href='/contato'>Contato</a>
+                    <a className='text-[20px]' href='/'>Home</a>
+                    <a className='text-[20px]' href='/vitrine'>Vinhos</a>
+                    <a className='text-[20px]' href='/sobre'>Sobre nós</a>
+                    <a className='text-[20px]' href='/contato'>Contato</a>
                     <a className="text-[28px]" href="/carrinho">
                         <PiShoppingCartThin />
                     </a>
-                    <a 
-                        className="text-[28px]" 
+                    
+                    <a
+                        className="text-[28px]"
                         href="#"
-                        onClick={handleProfileClick}
-                    >
+                        onClick={handleProfileClick}>
                         <CiUser />
                     </a>
                 </nav>
