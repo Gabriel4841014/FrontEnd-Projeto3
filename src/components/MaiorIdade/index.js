@@ -4,35 +4,42 @@ import React, { useEffect, useState } from "react";
 import { TfiClose } from "react-icons/tfi";
 
 export default function MaiorIdade() {
-    const [showVerification, setShowVerification] = useState(true);
+    const [showVerification, setShowVerification] = useState(false); // 
     const [isVerified, setIsVerified] = useState(false);
     const [showAccessDenied, setShowAccessDenied] = useState(false);
 
     useEffect(() => {
+       
         const ageConfirmed = localStorage.getItem("ageVerified");
-        if (ageConfirmed) {
+        if (ageConfirmed === "true") {
+           
             setIsVerified(true);
+            setShowVerification(false);
         } else {
+           
             setShowVerification(true);
+            setIsVerified(false);
         }
     }, []);
 
     const handleResponse = (isAdult) => {
         if (isAdult) {
+         
             localStorage.setItem("ageVerified", "true");
             setShowVerification(false);
             setIsVerified(true);
         } else {
             setShowAccessDenied(true);
+            setShowVerification(false);
         }
     };
 
     const handleClose = () => {
-        setShowAccessDenied(false);
-        setShowVerification(true);
+        window.location.href = 'https://www.google.com'; 
     };
 
-    if (!showVerification && isVerified) return null;
+
+    if (isVerified) return null;
 
     return (
         <>

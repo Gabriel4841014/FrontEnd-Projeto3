@@ -6,6 +6,7 @@ import Filtragem from "@/components/Filtragem";
 import BtnOrdenar from "@/components/BtnOrdenar";
 import BtnVoltar from "@/components/BtnVoltar";
 
+
 export default function Vitrine() {
     const [produtos, setProdutos] = useState([]);
     const [produtosFiltrados, setProdutosFiltrados] = useState([]);

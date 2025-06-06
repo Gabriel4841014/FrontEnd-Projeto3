@@ -18,10 +18,6 @@ export default function Filtragem({ onFiltroChange }) {
             { id: '101-200', label: 'R$ 101 a R$ 200' },
             { id: '201-500', label: 'R$ 201 a R$ 500' },
             { id: '501', label: 'Acima de R$ 500' }
-        ],
-        regiao: [
-            { id: 'serra-gaucha', label: 'Serra Gaúcha' },
-            { id: 'serra-da-canastra', label: 'Serra da Canastra' }
         ]
     };
 

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import Topo from "@/components/Topo";
@@ -7,6 +7,8 @@ import CardProd from "@/components/CardProd";
 import { useRouter } from 'next/navigation';
 import MaiorIdade from "@/components/MaiorIdade";
 import Footer from "@/components/Footer";
+
+
 
 export default function Home() {
   const [produtos, setProdutos] = useState([]);
