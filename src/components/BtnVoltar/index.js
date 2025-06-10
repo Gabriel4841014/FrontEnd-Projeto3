@@ -12,7 +12,7 @@ export default function BtnVoltar() {
 
     return (
         <div 
-            className="mb-45 mt-18 flex items-center ml-10 mr-auto cursor-pointer" 
+            className=" fixed top-30 left-5 flex items-center ml-10 mr-auto cursor-pointer" 
             onClick={handleBack}
         >
             <FaArrowLeft className="text-[#E1D5C2] text-xl font-['Gilda_Display'] mr-2" />

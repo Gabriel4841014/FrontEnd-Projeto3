@@ -2,84 +2,84 @@
 
 import { GoTrash } from "react-icons/go";
 import React, { useState } from 'react';
+import Cookies from 'js-cookie';
 
-export function Itens() {
-  
-  const [quantidade, setQuantidade] = useState(1);
+export default function Itens({ id, name, price, quantity: initialQuantity, image }) {
+  const [quantidade, setQuantidade] = useState(initialQuantity);
 
- 
   const handleAumentar = () => {
-    setQuantidade(quantidadeAnterior => quantidadeAnterior + 1);
+    const newQuantity = quantidade + 1;
+    setQuantidade(newQuantity);
+    updateCartItem(newQuantity);
   };
 
-  
   const handleDiminuir = () => {
-    
     if (quantidade > 1) {
-      setQuantidade(quantidadeAnterior => quantidadeAnterior - 1);
+      const newQuantity = quantidade - 1;
+      setQuantidade(newQuantity);
+      updateCartItem(newQuantity);
     }
   };
-  
-  
-  const quantidadeFormatada = String(quantidade).padStart(2, '0');
+
+  const handleRemoveItem = () => {
+    const currentCart = JSON.parse(Cookies.get('cart') || '[]');
+    const updatedCart = currentCart.filter(item => item.id !== id);
+    Cookies.set('cart', JSON.stringify(updatedCart));
+    window.location.reload(); // Refresh to update cart
+  };
+
+  const updateCartItem = (newQuantity) => {
+    const currentCart = JSON.parse(Cookies.get('cart') || '[]');
+    const updatedCart = currentCart.map(item => {
+      if (item.id === id) {
+        return { ...item, quantity: newQuantity };
+      }
+      return item;
+    });
+    Cookies.set('cart', JSON.stringify(updatedCart));
+  };
 
   return (
     <li className="bg-[#22272f] rounded-lg p-4 flex items-center gap-6 max-w-3xl w-full">
       <div className="border border-white rounded-md w-20 h-24 overflow-hidden">
         <img 
-          alt="Garrafa de vinho tinto Sacramentos Sabina Syrah com rótulo vermelho" 
+          alt={name}
           className="w-full h-full object-cover"
-          src="https://storage.googleapis.com/a1aa/image/cb99781b-a38f-482c-2094-71c5c3849943.jpg" 
+          src={image}
         />
       </div>
       
       <div className="flex flex-col flex-grow text-xs md:text-lg">
         <span className="leading-tight max-w-[180px] md:max-w-[220px]">
-          Sacramentos Sabina Syrah
+          {name}
         </span>
         <span className="mt-1">
-          Vinho tinto
+          R$ {price.toFixed(2)}
         </span>
       </div>
-      
-      
-      <div className="flex items-center gap-2 text-xs md:text-base select-none">
-        
-        <button 
-          onClick={handleDiminuir} 
-          aria-label="Diminuir quantidade" 
-          className="text-[#d9cdbf] hover:text-[#f0e6d2] transition text-lg"
-          disabled={quantidade <= 1} 
+
+      <div className="flex items-center gap-4">
+        <button
+          onClick={handleDiminuir}
+          className="text-lg w-8 h-8 bg-[#E1D5C2] text-[#22272f] rounded-full"
         >
-          −
+          -
         </button>
-        
-        
-        <span className="w-6 text-center">
-          {quantidadeFormatada}
-        </span>
-        
-        
-        <button 
-          onClick={handleAumentar} 
-          aria-label="Adicionar quantidade" 
-          className="text-[#d9cdbf] hover:text-[#f0e6d2] transition text-lg"
+        <span>{String(quantidade).padStart(2, '0')}</span>
+        <button
+          onClick={handleAumentar}
+          className="text-lg w-8 h-8 bg-[#E1D5C2] text-[#22272f] rounded-full"
         >
           +
         </button>
       </div>
-      
-      <span className="text-xs md:text-lg flex items-center">
-       
-        <span> R$500 </span>
-        <GoTrash className="ml-5" />
-      </span>
-      
-      <button aria-label="Remover item" className="text-[#d9cdbf] hover:text-[#f0e6d2] transition ml-4">
-        <i className="fas fa-trash-alt"></i>
+
+      <button 
+        onClick={handleRemoveItem}
+        className="text-red-500 hover:text-red-400 p-2 rounded-full hover:bg-red-500/10 transition-colors"
+      >
+        <GoTrash size={20} />
       </button>
     </li>
   );
 }
-
-export default Itens;

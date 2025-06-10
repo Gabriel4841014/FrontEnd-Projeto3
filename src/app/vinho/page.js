@@ -19,6 +19,14 @@ export default function WineDetail() {
 
   const defaultImage = '/default-wine.png'; // Add default image path
 
+  const incrementQuantity = () => {
+    setQuantity(prev => prev + 1);
+  };
+
+  const decrementQuantity = () => {
+    setQuantity(prev => prev > 1 ? prev - 1 : 1);
+  };
+
   useEffect(() => {
     const fetchWineData = async () => {
       try {
@@ -135,16 +143,33 @@ export default function WineDetail() {
                 <p className="text-md font-thin text-[#3F0D09] my-auto">{wine.volume}ml</p>
               </div>
               <div className="flex space-x-4 items-center">
-                <button className="bg-[#20232A] cursor-pointer text-white px-4 py-2 rounded flex items-center space-x-2">
-                  <span>Adicionar ao carrinho</span>
+                <button 
+                  className="bg-[#20232A] cursor-pointer text-white px-4 py-2 rounded"
+                  onClick={handleAddToCart}
+                >
+                  Adicionar ao carrinho
                 </button>
-                <input
-                  type="number"
-                  min="1"
-                  value={quantity}
-                  onChange={(e) => setQuantity(e.target.value)}
-                  className="w-12 text-black px-2 py-1 rounded"
-                />
+                <div className="flex items-center border border-[#3F0D09] rounded">
+                  <button
+                    onClick={decrementQuantity}
+                    className="px-3 py-1 text-[#3F0D09] hover:bg-gray-100"
+                  >
+                    -
+                  </button>
+                  <input
+                    type="number"
+                    min="1"
+                    value={quantity}
+                    onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                    className="w-12 text-center text-[#3F0D09] bg-transparent"
+                  />
+                  <button
+                    onClick={incrementQuantity}
+                    className="px-3 py-1 text-[#3F0D09] hover:bg-gray-100"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
             </div>
           </div>

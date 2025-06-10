@@ -5,7 +5,7 @@ import { PiShoppingCartThin } from "react-icons/pi";
 import { PiShoppingBagOpenThin } from "react-icons/pi";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { CiEdit } from "react-icons/ci";
-
+import BtnVoltar from '@/components/BtnVoltar';
 
 
 const Profile = () => {
@@ -137,6 +137,7 @@ const Profile = () => {
 
     return (
         <section className="flex gap-50 bg-[#000002] text-white p-30">
+              <BtnVoltar />
             <div className="mt-10">
                 <div className="">
                     <h1 className="text-[#E1D5C2] text-3xl font-['Gilda_Display']">

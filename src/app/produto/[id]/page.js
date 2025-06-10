@@ -5,6 +5,9 @@ import { useState, useEffect } from "react";
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import FeedbackModal from "@/components/FeedbackModal";
+import { Toaster, toast } from 'react-hot-toast';
+import Cookies from 'js-cookie';
+import BtnVoltar from "@/components/BtnVoltar";
 
 export default function WineDetail() {
   const { id } = useParams();
@@ -14,14 +17,21 @@ export default function WineDetail() {
   const [error, setError] = useState(null);
   const [recommendedProducts, setRecommendedProducts] = useState([]);
   const [reviews, setReviews] = useState([]);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const reviewsPerPage = 3;
+
   const [users, setUsers] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [visibleReviews, setVisibleReviews] = useState(3); // Add this state
+  
 
   const defaultImage = 'vinho1.png'; // Add default image path
+
+  const incrementQuantity = () => {
+    setQuantity(prev => prev + 1);
+  };
+
+  const decrementQuantity = () => {
+    setQuantity(prev => prev > 1 ? prev - 1 : 1);
+  };
 
   useEffect(() => {
     const fetchWineData = async () => {
@@ -107,137 +117,196 @@ export default function WineDetail() {
     fetchUsers();
   }, []);
 
+  const handleAddToCart = () => {
+    try {
+      const currentCart = JSON.parse(Cookies.get('cart') || '[]');
+      
+      const cartItem = {
+        id: wine.idProduto,
+        name: wine.nome,
+        price: wine.preco,
+        image: wine.fotoVinho || defaultImage,
+        quantity: Number(quantity)
+      };
+  
+      const existingItemIndex = currentCart.findIndex(item => item.id === cartItem.id);
+      
+      if (existingItemIndex >= 0) {
+        currentCart[existingItemIndex].quantity += cartItem.quantity;
+      } else {
+        currentCart.push(cartItem);
+      }
+      
+      Cookies.set('cart', JSON.stringify(currentCart));
+      toast.success('Produto adicionado ao carrinho!');
+    } catch (error) {
+      console.error('Erro ao adicionar ao carrinho:', error);
+      toast.error('Erro ao adicionar ao carrinho');
+    }
+  };
+
   if (loading) return <div className="text-white pt-24">Carregando...</div>;
   if (error) return <div className="text-red-500 pt-24">Erro: {error}</div>;
   if (!wine) return <div className="text-white pt-24">Vinho não encontrado</div>;
 
   return (
-    <div className="max-w-[1312px] pt-22 mx-auto text-neutral-100 space-y-8">
-      {wine && (
-        <div className="bg-[#EAE5E1] rounded-md m-0 p-6 flex w-[1312px] h-[679px] flex-row space-y-6 justify-center">
-          <div className="w-[1060px] py-[68px] flex row justify-center">
-            {wine.fotoVinho ? (
-              <img 
-                src={wine.fotoVinho} 
-                alt={wine.nome || 'Vinho'} 
-                className="max-w-[441px] h-auto mx-auto md:mx-0"
-                onError={(e) => {
-                  e.target.src = defaultImage;
-                }}
-              />
-            ) : (
-              <img 
-                src={defaultImage}
-                alt="Imagem padrão do vinho"
-                className="max-w-[441px] h-auto mx-auto md:mx-0"
-              />
-            )}
-            <div className="space-y-4 ml-10 my-auto">
-              <h1 className="text-3xl text-[#3F0D09]">{wine.nome}</h1>
-              <div className="w-[80%] h-[2px] bg-[#260401]"></div>
-              <p className="text-[#260401] max-w-md">{wine.descricao}</p>
-              
-              <div className="flex flex-row space-x-5">
-                <p className="text-2xl font-thin text-[#3F0D09]">R$ {wine.preco?.toFixed(2)}</p>
-                <p className="text-md font-thin text-[#3F0D09] my-auto">{wine.volume}ml</p>
-              </div>
-              <div className="flex space-x-4 items-center">
-                <button className="bg-[#20232A] cursor-pointer text-white px-4 py-2 rounded flex items-center space-x-2">
-                  <span>Adicionar ao carrinho</span>
-                </button>
-                <input
-                  type="number"
-                  min="1"
-                  value={quantity}
-                  onChange={(e) => setQuantity(e.target.value)}
-                  className="w-12 text-black px-2 py-1 rounded"
+    <>
+      <Toaster 
+        position="top-center"
+        toastOptions={{
+          duration: 2000,
+          style: {
+            background: '#333',
+            color: '#fff',
+          },
+        }}
+      />
+      <div className="max-w-[1312px] pt-22 mx-auto text-neutral-100 space-y-8">
+      <BtnVoltar />
+        {wine && (
+          <div className="bg-[#EAE5E1] rounded-md m-0 p-6 flex w-[1312px] h-[679px] flex-row space-y-6 justify-center">
+          
+            <div className="w-[1060px] py-[68px] flex row justify-center">
+              {wine.fotoVinho ? (
+                <img 
+                  src={wine.fotoVinho} 
+                  alt={wine.nome || 'Vinho'} 
+                  className="max-w-[441px] h-auto mx-auto md:mx-0"
+                  onError={(e) => {
+                    e.target.src = defaultImage;
+                  }}
                 />
+              ) : (
+                <img 
+                  src={defaultImage}
+                  alt="Imagem padrão do vinho"
+                  className="max-w-[441px] h-auto mx-auto md:mx-0"
+                />
+              )}
+              <div className="space-y-4 ml-10 my-auto">
+                <h1 className="text-3xl text-[#3F0D09]">{wine.nome}</h1>
+                <div className="w-[80%] h-[2px] bg-[#260401]"></div>
+                <p className="text-[#260401] max-w-md">{wine.descricao}</p>
+                
+                <div className="flex flex-row space-x-5">
+                  <p className="text-2xl font-thin text-[#3F0D09]">R$ {wine.preco?.toFixed(2)}</p>
+                  <p className="text-md font-thin text-[#3F0D09] my-auto">{wine.volume}ml</p>
+                </div>
+                <div className="flex items-center gap-4">
+                  <button 
+                    className="bg-[#20232A] text-white px-4 py-2 rounded"
+                    onClick={handleAddToCart}
+                  >
+                    Adicionar ao carrinho
+                  </button>
+                  <div className="flex items-center bg-white rounded-lg overflow-hidden">
+                    <button 
+                      onClick={decrementQuantity}
+                      className="px-3 py-1 text-black hover:bg-gray-100"
+                    >
+                      -
+                    </button>
+                    <input
+                      type="number"
+                      min="1"
+                      value={quantity}
+                      onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                      className="w-12 text-center text-black"
+                    />
+                    <button 
+                      onClick={incrementQuantity}
+                      className="px-3 py-1 text-black hover:bg-gray-100"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+        )}
+
+        <div className="bg-[#260401] rounded-xl p-6 grid grid-cols-2 md:grid-cols-3 gap-20 text-md text-center">
+          <Info title="Classificação" content={wine.classificacao} />
+          <Info title="Categoria" content={wine.categoria} />
+          <Info title="Gustativo" content={wine.gustativo} />
+          <Info title="Olfativo" content={wine.olfativo} />
+          <Info title="Região" content={wine.regiao} />
+          <Info title="Amadurecimento" content={wine.amadurecimento} />
+          <Info title="Análise" content={wine.analises} />
+          <Info title="Uvas" content={wine.uvas} />
+          <Info title="Temperatura" content={wine.temperatura} />
         </div>
-      )}
-
-      <div className="bg-[#260401] rounded-xl p-6 grid grid-cols-2 md:grid-cols-3 gap-20 text-md text-center">
-        <Info title="Classificação" content={wine.classificacao} />
-        <Info title="Categoria" content={wine.categoria} />
-        <Info title="Gustativo" content={wine.gustativo} />
-        <Info title="Olfativo" content={wine.olfativo} />
-        <Info title="Região" content={wine.regiao} />
-        <Info title="Amadurecimento" content={wine.amadurecimento} />
-        <Info title="Análise" content={wine.analises} />
-        <Info title="Uvas" content={wine.uvas} />
-        <Info title="Temperatura" content={wine.temperatura} />
-      </div>
-      
-      {/* Avaliação */}
-      <div className="space-y-4">
-        <h2 className="text-3xl text-[#E1D5C2] text-center">Experimente e compartilhe sua opinião!</h2>
-        <p className="text-center text-neutral-400">O que achou deste vinho? Sua avaliação é importante para nós!</p>
-        <button 
-          className="mx-auto block cursor-pointer bg-[#EAE5E1] text-black px-29 py-2 rounded"
-          onClick={() => setIsModalOpen(true)}
-        >
-          Quero avaliar :)
-        </button>
-
-        <FeedbackModal 
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          productId={id}
-          onSubmit={async (reviewData) => {
-            // Refresh reviews after submission
-            await fetchReviews();
-            setIsModalOpen(false);
-          }}
-        />
-
-        <h3 className="text-2xl text-[#E1D5C2]">Avaliações e Comentários</h3>
+        
+        {/* Avaliação */}
         <div className="space-y-4">
-          {reviews && reviews.length > 0 ? (
-            <>
-              {reviews.slice(0, visibleReviews).map((review) => {
-                const user = users[review.usuarioCpf] || {};
-                return (
-                  <ReviewCard 
-                    key={review.idAvaliacao}
-                    rating={Number(review.avaliacao)}
-                    content={review.conteudo}
-                    date={new Date(review.dataCriacao).toLocaleDateString('pt-BR')}
-                    userName={user.nome || 'Usuário'}
-                    userImage={user.avatar || 'favicon-16x16.png'}
-                  />
-                )
-              })}
-              
-              {reviews.length > visibleReviews && (
-                <button 
-                  onClick={() => setVisibleReviews(prev => prev + 3)}
-                  className="mx-auto block cursor-pointer bg-[#EAE5E1] text-black px-4 py-2 rounded mt-4 hover:bg-[#d4cdc3]"
-                >
-                  Ver mais avaliações
-                </button>
-              )}
-            </>
-          ) : (
-            <p className="text-center text-neutral-400">Nenhuma avaliação disponível.</p>
-          )}
-        </div>
-      </div>
+          <h2 className="text-3xl text-[#E1D5C2] text-center">Experimente e compartilhe sua opinião!</h2>
+          <p className="text-center text-neutral-400">O que achou deste vinho? Sua avaliação é importante para nós!</p>
+          <button 
+            className="mx-auto block cursor-pointer bg-[#EAE5E1] text-black px-29 py-2 rounded"
+            onClick={() => setIsModalOpen(true)}
+          >
+            Quero avaliar :)
+          </button>
 
-      {/* Recomendados */}
-      <div>
-        <h3 className="text-md font-semibold text-center mb-4">A escolha certa para o seu paladar!</h3>
-        <div className="flex flex-row justify-center gap-4">
-          {recommendedProducts.map((product) => (
-            <CardProd
-              key={product.idProduto}
-              produto={product}
-            />
-          ))}
+          <FeedbackModal 
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            productId={id}
+            onSubmit={async (reviewData) => {
+              // Refresh reviews after submission
+              await fetchReviews();
+              setIsModalOpen(false);
+            }}
+          />
+
+          <h3 className="text-2xl text-[#E1D5C2]">Avaliações e Comentários</h3>
+          <div className="space-y-4">
+            {reviews && reviews.length > 0 ? (
+              <>
+                {reviews.slice(0, visibleReviews).map((review) => {
+                  const user = users[review.usuarioCpf] || {};
+                  return (
+                    <ReviewCard 
+                      key={review.idAvaliacao}
+                      rating={Number(review.avaliacao)}
+                      content={review.conteudo}
+                      date={new Date(review.dataCriacao).toLocaleDateString('pt-BR')}
+                      userName={user.nome || 'Usuário'}
+                      userImage={user.avatar || 'favicon-16x16.png'}
+                    />
+                  )
+                })}
+                
+                {reviews.length > visibleReviews && (
+                  <button 
+                    onClick={() => setVisibleReviews(prev => prev + 3)}
+                    className="mx-auto block cursor-pointer bg-[#EAE5E1] text-black px-4 py-2 rounded mt-4 hover:bg-[#d4cdc3]"
+                  >
+                    Ver mais avaliações
+                  </button>
+                )}
+              </>
+            ) : (
+              <p className="text-center text-neutral-400">Nenhuma avaliação disponível.</p>
+            )}
+          </div>
+        </div>
+
+        {/* Recomendados */}
+        <div>
+          <h3 className="text-md font-semibold text-center mb-4">A escolha certa para o seu paladar!</h3>
+          <div className="flex flex-row justify-center gap-4">
+            {recommendedProducts.map((product) => (
+              <CardProd
+                key={product.idProduto}
+                produto={product}
+              />
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
