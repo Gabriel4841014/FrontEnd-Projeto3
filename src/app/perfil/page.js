@@ -119,12 +119,10 @@ const Profile = () => {
 
     return (
         <section className="flex gap-50 bg-[#000002] text-white p-30">
-<<<<<<< HEAD
-              <BtnVoltar />
-=======
+            <BtnVoltar />
 
->>>>>>> a5b87b3c441420806de6e02457523479b2794fa8
             <div className="mt-10">
+
                 <div>
                     <h1 className="text-[#E1D5C2] text-3xl font-['Gilda_Display']"> Olá, {userData?.nome || '[Nome do Usuário]'}! </h1>
                     <p className="w-85 text-[#EAE5E1] font-['Gilda_Display'] mt-3 mb-15"> Bem-vindo ao seu espaço exclusivo. Aqui você pode gerenciar seus dados e acompanhar seus pedidos.</p>
@@ -149,7 +147,7 @@ const Profile = () => {
 
                 <div className="bg-[#000002] rounded-lg p-20 border border-[#EAE5E1]">
 
-                    <div className="flex items-center gap-[39%] mb-10">
+                    <div className="flex items-center gap-[49%] mb-10">
 
                         <div className="flex items-center gap-10">
                             <div className="w-20 h-20 bg-zinc-300 rounded-full">
@@ -182,8 +180,8 @@ const Profile = () => {
 
                             <button
                                 onClick={handleEditClick}
-                                className="w-30 h-8 p-2 bg-[#20232A] rounded-[5px]"
-                            >
+                                className="w-30 h-8 p-2 bg-[#20232A] rounded-[5px]">
+
                                 <div className="flex items-center gap-2 justify-center">
                                     <CiEdit className="size-4 text-[#FFFFFF]" />
                                     <span className="text-[#EAE5E1] cursor-pointer text-xs font-['Gilda_Display']">
@@ -235,11 +233,13 @@ const Profile = () => {
                     </div>
 
                     {isEditing && (
-                        <button onClick={handleSaveClick} className="w-40 h-12 bg-[#20232A] rounded-[5px] items-center justify-center mt-15 ml-107 mr-107">
-                            <p className="text-[#EAE5E1] cursor-pointer text-[17px] font-['Gilda_Display']">
+                        <div className="flex justify-center mt-15">
+                            <button
+                                onClick={handleSaveClick}
+                                className="w-40 h-12 bg-[#20232A] rounded-[5px] text-[#EAE5E1] font-['Gilda_Display'] text-[17px]">
                                 Salvar mudanças
-                            </p>
-                        </button>
+                            </button>
+                        </div>
                     )}
                 </div>
             </div>
@@ -283,6 +283,7 @@ const InputField = ({ label, value, type, readOnly, onChange }) => {
             <label className="block mb-1 justify-start text-[#E1D5C2] text-base font-['Gilda_Display']">
                 {label}
             </label>
+
             <input
                 type="text"
                 value={formattedValue}
