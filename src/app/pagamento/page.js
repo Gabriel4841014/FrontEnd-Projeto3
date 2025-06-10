@@ -21,8 +21,12 @@ export default function Pagamento() {
         <a href="/pagamentoPix" className="flex items-center space-x-2">
         <button className="bg-[#22252a] text-[#d9cfc4] text-lg font-normal py-2.5 px-8 rounded-md select-none">PIX</button>
         </a>
+
         <div className="h-6 border-l border-[#4a4a4a]"></div>
+        <a href="/pagamentoCartao" className="flex items-center space-x-2">
         <button className="bg-[#22252a] text-[#d9cfc4] text-lg font-normal py-2.5 px-8 rounded-md select-none">Cartão</button>
+
+        </a>
       </div>
 
       <h2 className="text-xl font-normal mb-6">Endereço de entrega</h2>
