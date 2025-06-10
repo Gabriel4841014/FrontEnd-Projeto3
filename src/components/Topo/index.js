@@ -4,6 +4,7 @@ import React from 'react';
 import { PiShoppingCartThin } from "react-icons/pi";
 import { CiUser } from "react-icons/ci";
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import Cookies from 'js-cookie';
 
 export default function Topo() {
@@ -47,7 +48,14 @@ export default function Topo() {
     return (
         <header className='z-100 w-full h-20 fixed bg-black shadow-lg uppercase'>
             <div className="flex items-center justify-between">
-                <img className="h-12 w-22 ml-10" src="Vivanti.png" alt="Vivant Logo" />
+                <Image 
+                    src="/Vivanti.png"
+                    alt="Vivant Logo"
+                    width={88}
+                    height={48}
+                    className="ml-10"
+                    priority
+                />
                 <nav className="flex items-center justify-between pr-10 p-5 gap-10">
                     <a className='text-[20px]' href='/'>Home</a>
                     <a className='text-[20px]' href='/vitrine'>Vinhos</a>

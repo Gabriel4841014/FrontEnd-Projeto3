@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
-import jwt_decode from 'jwt-decode';
+
 
 const FeedbackModal = ({ isOpen, onClose, productId, onSubmit }) => {
   const [rating, setRating] = useState(0);
