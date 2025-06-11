@@ -1,11 +1,11 @@
 "use client";
 import BtnVoltar from '@/components/BtnVoltar';
-import React, { useState } from 'react'; // 1. Importamos o useState
+import React, { useState } from 'react'; 
 
 export default function PagamentoCartao() {
 
-    // 2. Criamos um estado para saber qual parcela está selecionada
-    const [parcelaSelecionada, setParcelaSelecionada] = useState(null); // Inicia como nulo (nenhuma selecionada)
+    // Criamos um estado para saber qual parcela está selecionada
+    const [parcelaSelecionada, setParcelaSelecionada] = useState(null); // Inicia como nulo
 
     // Lista de opções de parcelamento para não repetir código
     const opcoesDeParcelamento = [
@@ -24,7 +24,7 @@ export default function PagamentoCartao() {
                 <BtnVoltar />
             </header>
 
-            <h1 className="text-2xl sm:text-3xl mb-4 -mt-30">
+            <h1 className="text-2xl sm:text-3xl mb-4 mt-30">
                 Finalize sua compra!
             </h1>
             <p className="mb-12 text-center text-sm sm:text-base max-w-xl">
@@ -63,7 +63,7 @@ export default function PagamentoCartao() {
                     </div>
                 </section>
 
-                {/* INÍCIO DA SEÇÃO MODIFICADA */}
+               
                 <section className="flex-1 max-w-md mb-80">
                     <p className="mb-6 text-center text-sm sm:text-base font-normal">
                         Pagamento em parcelado
@@ -76,10 +76,11 @@ export default function PagamentoCartao() {
                                     key={opcao.parcelas}
                                     type="button"
                                     onClick={() => setParcelaSelecionada(opcao.parcelas)}
-                                    // 3. O estilo do botão muda se ele estiver selecionado
+
+                                    // estilo do botão muda se ele estiver selecionado
                                     className={`rounded-md py-3 px-6 text-left text-base sm:text-lg font-normal transition-colors duration-200 ${
                                         isSelecionada
-                                            ? 'bg-[#a88a7e] text-white ring-2 ring-offset-2 ring-[#a88a7e]' // Estilo SELECIONADO
+                                            ? 'bg-[#20232A] text-white ring-2 ring-offset-2 ring-[#a88a7e]' // Estilo SELECIONADO
                                             : 'bg-[#e9e3de] text-[#a88a7e]' // Estilo PADRÃO
                                     }`}
                                 >
@@ -92,7 +93,6 @@ export default function PagamentoCartao() {
                         })}
                     </div>
                 </section>
-                {/* FIM DA SEÇÃO MODIFICADA */}
             </form>
         </main>
     )

@@ -5,13 +5,13 @@ import React from 'react';
 export default function PagamentoPix() {
     return (
     <main className="flex-grow flex flex-col items-center justify-center px-4 text-center max-w-3xl">
-    {/* Header ajustado */}
-    <header className="w-full flex justify-start items-center mt-5 mr-8"> {/* Ajuste mt-6 e mb-8 conforme necessário */}
+   
+    <header className="w-full flex justify-start items-center mt-5 mr-8"> 
         <BtnVoltar />
     </header>
    <div className='ml-290'>
 
-    <h1 className="text-3xl -mt-20 mb-5"> {/* Nota: mt-50 é uma margem bem grande */}
+    <h1 className="text-3xl mt-30 mb-5"> 
         Finalize sua compra!
     </h1>
     <p className="text-xl mb-6 leading-relaxed w-200">
@@ -20,7 +20,7 @@ export default function PagamentoPix() {
         Pix e cole no campo de pagamento do seu aplicativo bancário.
     </p>
     <div className="p-4 mb-2">
-        <img alt="QR Code preto e branco quadrado com padrão pixelado para pagamento Pix" className="ml-70 w-50 h-50 rounded-md" src="qrCodePix.png"/> {/* Removidos width e height HTML */}
+        <img alt="QR Code preto e branco quadrado com padrão pixelado para pagamento Pix" className="ml-70 w-50 h-50 rounded-md" src="qrCodePix.png"/>
     </div>
     <p className="text-xs mb-4 select-text">
         7h9XkA3QeH8jVnB2LR6KwZ4TpYpC7J5
