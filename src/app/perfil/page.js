@@ -118,6 +118,8 @@ const Profile = () => {
     }
 
     return (
+        <section className="flex gap-50 bg-[#000002] text-white p-30">
+              <BtnVoltar />
         <section className="flex gap-50 bg-[#000002] text-white p-40">
             <BtnVoltar />
 
