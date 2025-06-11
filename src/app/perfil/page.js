@@ -1,9 +1,9 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { PiShoppingCartThin, PiShoppingBagOpenThin } from "react-icons/pi";
+import { PiShoppingBagOpenThin } from "react-icons/pi";
 import { IoIosHeartEmpty } from "react-icons/io";
-import { CiEdit } from "react-icons/ci";
+import { CiEdit, CiUser } from "react-icons/ci";
 import BtnVoltar from '@/components/BtnVoltar';
 
 
@@ -118,7 +118,7 @@ const Profile = () => {
     }
 
     return (
-        <section className="flex gap-50 bg-[#000002] text-white p-30">
+        <section className="flex gap-50 bg-[#000002] text-white p-40">
             <BtnVoltar />
 
             <div className="mt-10">
@@ -130,7 +130,7 @@ const Profile = () => {
 
                 <nav className="w-1/4 p-4 bg-[#000002]">
                     <ul>
-                        <li className="w-60 mb-10 flex gap-4 text-center"><PiShoppingCartThin className="size-7 text-[#E1D5C2]" />
+                        <li className="w-60 mb-10 flex gap-4 text-center"><CiUser className="size-7 text-[#E1D5C2]" />
                             <a href="#" className="justify-start text-[#E1D5C2] text-2xl font-['Gilda_Display']">Minha conta</a></li>
 
                         <li className="w-60 mb-10 flex gap-4 text-center"><PiShoppingBagOpenThin className="size-7 text-[#E1D5C2]" />

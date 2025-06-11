@@ -118,7 +118,7 @@ export default function Vitrine() {
     }
 
     return (
-        <div className="flex flex-col justify-center items-center p-4">
+        <section className="flex flex-col justify-center items-center p-4 mb-30">
             <div className="flex mb-20 flex-col fixed top-0 left-0 w-full h-20 bg-black shadow-lg uppercase p-6">
                 <BtnVoltar className='top-20'/>
             </div>
@@ -144,6 +144,6 @@ export default function Vitrine() {
                     ))}
                 </div>
             </div>
-        </div>
+        </section>
     );
 }
