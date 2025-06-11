@@ -119,8 +119,10 @@ export default function WineDetail() {
 
   const handleAddToCart = () => {
     try {
-      const currentCart = JSON.parse(Cookies.get('cart') || '[]');
-      
+      // Get and normalize cart data
+      const savedCart = JSON.parse(Cookies.get('cart') || '[]');
+      const currentCart = Array.isArray(savedCart) ? savedCart : [];
+  
       const cartItem = {
         id: wine.idProduto,
         name: wine.nome,
@@ -129,6 +131,7 @@ export default function WineDetail() {
         quantity: Number(quantity)
       };
   
+      // Find existing item
       const existingItemIndex = currentCart.findIndex(item => item.id === cartItem.id);
       
       if (existingItemIndex >= 0) {
@@ -136,8 +139,16 @@ export default function WineDetail() {
       } else {
         currentCart.push(cartItem);
       }
+  
+      // Calculate new total
+      const cartTotal = currentCart.reduce((sum, item) => 
+        sum + (item.price * item.quantity), 0
+      );
       
+      // Save cart items and total in separate cookies
       Cookies.set('cart', JSON.stringify(currentCart));
+      Cookies.set('cartTotal', cartTotal.toFixed(2));
+      
       toast.success('Produto adicionado ao carrinho!');
     } catch (error) {
       console.error('Erro ao adicionar ao carrinho:', error);

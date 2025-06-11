@@ -119,11 +119,7 @@ const Profile = () => {
 
     return (
         <section className="flex gap-50 bg-[#000002] text-white p-30">
-<<<<<<< HEAD
               <BtnVoltar />
-=======
-
->>>>>>> a5b87b3c441420806de6e02457523479b2794fa8
             <div className="mt-10">
                 <div>
                     <h1 className="text-[#E1D5C2] text-3xl font-['Gilda_Display']"> Olá, {userData?.nome || '[Nome do Usuário]'}! </h1>
