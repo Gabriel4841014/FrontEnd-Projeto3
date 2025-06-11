@@ -1,5 +1,4 @@
 "use client";
-import { FaArrowLeft } from "react-icons/fa6";
 import React, { useState } from 'react';
 import BtnVoltar from "@/components/BtnVoltar";
 
@@ -15,7 +14,7 @@ export default function Pagamento() {
 
     <section className="flex-1 px-8 pt-8 mt-30">
 
-      <h1 className="text-3xl mb-10">Finalize sua compra!</h1>
+      <h1 className="text-3xl mt-10 mb-10">Finalize sua compra!</h1>
 
       <div className="flex items-center space-x-6 mb-12">
         <a href="/pagamentoPix" className="flex items-center space-x-2">
