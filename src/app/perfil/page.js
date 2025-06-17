@@ -5,9 +5,10 @@ import { PiShoppingBagOpenThin } from "react-icons/pi";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { CiEdit, CiUser } from "react-icons/ci";
 import BtnVoltar from '@/components/BtnVoltar';
-
+import { useRouter } from 'next/navigation';
 
 const Profile = () => {
+    const router = useRouter();
     const [userData, setUserData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
@@ -114,12 +115,27 @@ const Profile = () => {
         }
     };
 
+    const handleLogout = () => {
+        try {
+            // Clear all cookies
+            Cookies.remove('userData');
+            Cookies.remove('accessToken');
+            Cookies.remove('cart');
+            Cookies.remove('cartTotal');
+            
+            // Redirect to login
+            router.push('/login');
+        } catch (error) {
+            console.error('Erro ao fazer logout:', error);
+        }
+    };
+
     if (loading) {
         return <div className="text-white">Carregando...</div>;
     }
 
     return (
-
+        
         <section className="flex gap-50 bg-[#000002] text-white p-40">
             <BtnVoltar />
 
@@ -243,6 +259,15 @@ const Profile = () => {
                             </button>
                         </div>
                     )}
+                    <div className="flex justify-end gap-4 mt-6">
+                    
+                        <button
+                            onClick={handleLogout}
+                            className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+                        >
+                            Sair da Conta
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
