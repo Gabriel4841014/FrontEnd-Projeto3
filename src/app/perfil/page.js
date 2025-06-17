@@ -66,6 +66,7 @@ const Profile = () => {
         }));
     };
 
+
     const handleSaveClick = async () => {
         try {
             const storedUserData = Cookies.get('userData');
@@ -118,8 +119,7 @@ const Profile = () => {
     }
 
     return (
-        <section className="flex gap-50 bg-[#000002] text-white p-30">
-              <BtnVoltar />
+
         <section className="flex gap-50 bg-[#000002] text-white p-40">
             <BtnVoltar />
 
@@ -139,7 +139,7 @@ const Profile = () => {
                             <a href="/meusPedidos" className="justify-start text-[#E1D5C2] text-2xl font-['Gilda_Display']">Meus pedidos</a></li>
 
                         <li className="w-60 mb-10 flex gap-4 text-center"><IoIosHeartEmpty className="size-7 text-[#E1D5C2]" />
-                            <a href="#" className="justify-start text-[#E1D5C2] text-2xl font-['Gilda_Display']">Meus favoritos</a></li>
+                            <a href="/favoritos" className="justify-start text-[#E1D5C2] text-2xl font-['Gilda_Display']">Meus favoritos</a></li>
                     </ul>
                 </nav>
             </div>
@@ -246,6 +246,7 @@ const Profile = () => {
                 </div>
             </div>
         </section>
+
     );
 };
 
