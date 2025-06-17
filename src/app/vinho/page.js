@@ -1,9 +1,9 @@
 "use client"
+
 import CardProd from "@/components/CardProd";
 import ReviewCard from "@/components/Review";
 import { useState, useEffect } from "react";
 import { useParams } from 'next/navigation';
-import Image from 'next/image';
 
 export default function WineDetail() {
   const { id } = useParams();
