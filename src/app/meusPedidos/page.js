@@ -49,12 +49,15 @@ const MeusPedidos = () => {
     return (
         <section className="flex gap-50 bg-[#000002] text-white p-40">
             <BtnVoltar />
-            <div className="mt-10">
-                <nav className="w-1/4 p-4 bg-[#000002]">
+            <div className="flex w-full">
+                <nav className="w-1/4 p-4 bg-[#000002] min-w-[250px]">
                     <ul>
-                        <li className="w-60 mb-10 flex gap-4 text-center"><CiUser className="size-7 text-[#E1D5C2]" />
-                            <a href="/perfil" className="justify-start text-[#E1D5C2] text-2xl font-['Gilda_Display']">Minha conta</a></li>
-
+                        <li className="w-60 mb-10 flex gap-4 text-center">
+                            <CiUser className="size-7 text-[#E1D5C2]" />
+                            <a href="/perfil" className="justify-start text-[#E1D5C2] text-2xl font-['Gilda_Display']">
+                                Minha conta
+                            </a>
+                        </li>
                         <li className="w-60 mb-10 flex gap-4 text-center"><PiShoppingBagOpenThin className="size-7 text-[#E1D5C2]" />
                             <a href="/meusPedidos" className="justify-start text-[#E1D5C2] text-2xl font-['Gilda_Display']">Meus pedidos</a></li>
 
@@ -63,27 +66,29 @@ const MeusPedidos = () => {
                     </ul>
                 </nav>
 
-                {loading ? (
-                    <div>Carregando pedidos...</div>
-                ) : error ? (
-                    <div>Erro ao carregar pedidos.</div>
-                ) : (
-                    <div className="space-y-6">
-                        {orders && orders.map((order) => (
-                            <CardPedido
-                                key={order.idPedido}
-                                imageSrc="/vinho1.png"
-                                productName={order.produtos[0]?.nome || "Produto"}
-                                price={order.valorTotal}
-                                quantity={1}
-                                orderNumber={order.idPedido}
-                                orderDate={new Date(order.dataCompra).toLocaleDateString('pt-BR')}
-                                status={order.status}
-                                address={formatAddress(order.endereco)}
-                            />
-                        ))}
-                    </div>
-                )}
+                <div className="flex-1 pl-8">
+                    {loading ? (
+                        <div>Carregando pedidos...</div>
+                    ) : error ? (
+                        <div>Erro ao carregar pedidos.</div>
+                    ) : (
+                        <div className="space-y-6">
+                            {orders && orders.map((order) => (
+                                <CardPedido
+                                    key={order.idPedido}
+                                    imageSrc="/boxicon.png"
+                                    productName="Pedido: "
+                                    price={order.valorTotal}
+                                   
+                                    orderNumber={order.idPedido}
+                                    orderDate={new Date(order.dataCompra).toLocaleDateString('pt-BR')}
+                                    status={order.status}
+                                    address={formatAddress(order.endereco)}
+                                />
+                            ))}
+                        </div>
+                    )}
+                </div>
             </div>
         </section>
     );

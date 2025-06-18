@@ -18,21 +18,19 @@ export default function CardPedido({
                     <Image
                         src={imageSrc}
                         alt={productName}
-                        width={200}
-                        height={280}
-                        className="w-50 h-70 rounded-[10px] border border-[#3F0D09] object-cover m-3"
+                        width={150}
+                        height={150}
+                        className="w-auto  m-3"
                     />
 
                     <div className="flex flex-col justify-between m-3">
-                        <h3 className="w-60 justify-start text-[#3F0D09] text-2xl font-['Gilda_Display']">
+                        <h3 className="w-25 justify-end text-[#3F0D09] text-2xl font-['Gilda_Display']">
                             {productName}
                         </h3>
                         <h3 className="justify-start text-[#3F0D09] text-3xl font-['Gilda_Display']">
                             R$ {price.toFixed(2)}
                         </h3>
-                        <p className="justify-start text-[#260401] text-xl font-['Gilda_Display']">
-                            Quantidade: {quantity}
-                        </p>
+                       
                     </div>
                 </div>
 
