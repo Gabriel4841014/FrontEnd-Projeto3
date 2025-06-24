@@ -19,6 +19,18 @@ export default function Pagamento() {
         expiry: '',
         cvv: ''
     });
+    const [showAddressForm, setShowAddressForm] = useState(false);
+    const [addressData, setAddressData] = useState({
+        apelido: '',
+        cep: '',
+        rua: '',
+        numero: '',
+        complemento: '',
+        cidade: '',
+        estado: '',
+        bairro: ''
+    });
+    const [enderecosUsuario, setEnderecosUsuario] = useState([]);
 
     useEffect(() => {
         try {
@@ -34,9 +46,46 @@ export default function Pagamento() {
         }
     }, []);
 
+    useEffect(() => {
+        // Carregar endereços do usuário
+        const fetchEnderecos = async () => {
+            const accessToken = Cookies.get('accessToken');
+            let usuarioCpf = null;
+            if (accessToken) {
+                try {
+                    const payload = JSON.parse(atob(accessToken.split('.')[1]));
+                    usuarioCpf = payload.cpf;
+                } catch {}
+            }
+            if (!usuarioCpf) return;
+
+            try {
+                const response = await fetch("https://localhost:8000/enderecos/");
+                const data = await response.json();
+                // Filtra apenas endereços do usuário logado
+                const enderecosFiltrados = data.enderecos.filter(e => e.usuarioCpf === usuarioCpf);
+                setEnderecosUsuario(enderecosFiltrados);
+                // Se já existe endereço, seleciona o primeiro por padrão
+                if (enderecosFiltrados.length > 0) setAddress(enderecosFiltrados[0].idEndereco);
+            } catch (error) {
+                setEnderecosUsuario([]);
+            }
+        };
+
+        fetchEnderecos();
+    }, []);
+
     const handleCardInputChange = (e) => {
         const { name, value } = e.target;
         setCardData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const handleAddressInputChange = (e) => {
+        const { name, value } = e.target;
+        setAddressData(prev => ({
             ...prev,
             [name]: value
         }));
@@ -57,16 +106,108 @@ export default function Pagamento() {
 
         setLoading(true);
         try {
-            // Simulate payment processing
+            // Simula processamento do pagamento
             await new Promise(resolve => setTimeout(resolve, 2000));
-            
-            // Clear cart after successful payment
+
+            // Recupera o CPF do usuário do token
+            const accessToken = Cookies.get('accessToken');
+            let usuarioCpf = null;
+            if (accessToken) {
+                try {
+                    const payload = JSON.parse(atob(accessToken.split('.')[1]));
+                    usuarioCpf = payload.cpf;
+                } catch {}
+            }
+
+            // Recupera o idPedido do cookie
+            const idPedido = Cookies.get('idPedido');
+
+            // Monta o corpo do pagamento conforme solicitado
+            const pagamento = {
+                idPedido: Number(idPedido),
+                metodo: paymentMethod === 'card' ? 'Cartão' : 'PIX',
+                valorPago: total,
+                status: "Pago", // se o backend aceitar, senão remova
+                dataPagamento: new Date().toISOString() // se o backend aceitar, senão remova
+            };
+
+            // Faz o POST para /pagamentos
+            const pagamentoResponse = await fetch("https://localhost:8000/pagamentos", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(pagamento)
+            });
+
+            if (!pagamentoResponse.ok) {
+                throw new Error('Erro ao registrar pagamento');
+            }
+
+            // Limpa o carrinho após o pagamento
             Cookies.remove('cart');
-            
+            Cookies.remove('cartTotal');
+
             toast.success('Pagamento realizado com sucesso!');
             router.push('/confirmacao');
         } catch (error) {
             toast.error('Erro ao processar pagamento');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleSaveAddress = async () => {
+        const accessToken = Cookies.get('accessToken');
+        let usuarioCpf = null;
+        if (accessToken) {
+            try {
+                const payload = JSON.parse(atob(accessToken.split('.')[1]));
+                usuarioCpf = payload.cpf;
+            } catch {}
+        }
+        if (!usuarioCpf) {
+            toast.error('Usuário não autenticado');
+            return;
+        }
+
+        // Validação do CEP: apenas números e exatamente 8 dígitos
+        const cepNumeros = addressData.cep.replace(/\D/g, '');
+        if (cepNumeros.length !== 8) {
+            toast.error('CEP deve ter exatamente 8 dígitos numéricos');
+            return;
+        }
+
+        // Validação dos outros campos obrigatórios
+        if (!addressData.rua || !addressData.numero || !addressData.cidade || !addressData.estado || !addressData.bairro) {
+            toast.error('Preencha todos os campos obrigatórios do endereço');
+            return;
+        }
+
+        setLoading(true);
+        try {
+            const response = await fetch("https://localhost:8000/enderecos", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    usuarioCpf,
+                    ...addressData,
+                    cep: cepNumeros // envia o CEP sem máscara
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Erro ao salvar endereço');
+            }
+
+            const data = await response.json();
+            setAddress(data.idEndereco);
+            setShowAddressForm(false);
+            toast.success('Endereço salvo com sucesso! Agora selecione o método de pagamento.');
+        } catch (error) {
+            toast.error('Erro ao salvar endereço');
         } finally {
             setLoading(false);
         }
@@ -108,22 +249,67 @@ export default function Pagamento() {
 
                 <h2 className="text-xl font-normal mb-6">Endereço de entrega</h2>
 
-                <div className="flex flex-col gap-6 mb-8">
-                    <label className="flex items-start space-x-3 max-w-xl">
-                        <input 
-                            type="radio" 
-                            name="address"
-                            value="address1"
-                            checked={address === 'address1'}
-                            onChange={(e) => setAddress(e.target.value)}
-                            className="mt-1 w-4 h-4 text-[#d9cfc4] bg-black border-[#d9cfc4] focus:ring-[#d9cfc4]"
-                        />
-                        <span className="text-sm leading-tight max-w-xl">
-                            Rua das Flores, 123 - Bairro Jardim das Acácias<br />
-                            Belo Horizonte, Minas Gerais, 12345-678
-                        </span>
-                    </label>
-                </div>
+                {!showAddressForm ? (
+                    <div className="flex flex-col gap-6 mb-8">
+                        {enderecosUsuario.length > 0 ? (
+                            enderecosUsuario.map((end) => (
+                                <label key={end.idEndereco} className="flex items-start space-x-3 max-w-xl">
+                                    <input
+                                        type="radio"
+                                        name="address"
+                                        value={end.idEndereco}
+                                        checked={address === end.idEndereco}
+                                        onChange={() => setAddress(end.idEndereco)}
+                                        className="mt-1 w-4 h-4 text-[#d9cfc4] bg-black border-[#d9cfc4] focus:ring-[#d9cfc4]"
+                                    />
+                                    <span className="text-sm leading-tight max-w-xl">
+                                        {end.apelido} - {end.rua}, {end.numero} - {end.bairro}, {end.cidade}/{end.estado} - CEP: {end.cep}
+                                    </span>
+                                </label>
+                            ))
+                        ) : (
+                            <span className="text-sm leading-tight max-w-xl">
+                                Nenhum endereço cadastrado.
+                            </span>
+                        )}
+                        <button
+                            onClick={() => setShowAddressForm(true)}
+                            className="bg-[#E1D5C2] text-[#22252a] text-sm font-semibold py-2 px-4 rounded-md hover:bg-[#d9cdbf] w-fit"
+                        >
+                            {enderecosUsuario.length > 0 ? "Adicionar novo endereço" : "Cadastrar endereço"}
+                        </button>
+                    </div>
+                ) : (
+                    <div className="bg-[#22272f] rounded-lg p-6 mb-8">
+                        <h3 className="text-xl mb-4">Novo Endereço</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input name="apelido" placeholder="Apelido" value={addressData.apelido} onChange={handleAddressInputChange} className="p-2 rounded bg-[#EAE5E1] text-black" />
+                            <input name="cep" placeholder="CEP" value={addressData.cep} onChange={handleAddressInputChange} className="p-2 rounded bg-[#EAE5E1] text-black" />
+                            <input name="rua" placeholder="Rua" value={addressData.rua} onChange={handleAddressInputChange} className="p-2 rounded bg-[#EAE5E1] text-black" />
+                            <input name="numero" placeholder="Número" value={addressData.numero} onChange={handleAddressInputChange} className="p-2 rounded bg-[#EAE5E1] text-black" />
+                            <input name="complemento" placeholder="Complemento" value={addressData.complemento} onChange={handleAddressInputChange} className="p-2 rounded bg-[#EAE5E1] text-black" />
+                            <input name="bairro" placeholder="Bairro" value={addressData.bairro} onChange={handleAddressInputChange} className="p-2 rounded bg-[#EAE5E1] text-black" />
+                            <input name="cidade" placeholder="Cidade" value={addressData.cidade} onChange={handleAddressInputChange} className="p-2 rounded bg-[#EAE5E1] text-black" />
+                            <input name="estado" placeholder="Estado" value={addressData.estado} onChange={handleAddressInputChange} className="p-2 rounded bg-[#EAE5E1] text-black" />
+                        </div>
+                        <div className="flex gap-4 mt-4">
+                            <button
+                                onClick={handleSaveAddress}
+                                className="bg-[#E1D5C2] text-[#22252a] text-sm font-semibold py-2 px-4 rounded-md hover:bg-[#d9cdbf]"
+                                disabled={loading}
+                            >
+                                {loading ? "Salvando..." : "Salvar endereço"}
+                            </button>
+                            <button
+                                onClick={() => setShowAddressForm(false)}
+                                className="bg-[#22252a] text-[#E1D5C2] text-sm font-semibold py-2 px-4 rounded-md hover:bg-[#3F0D09]"
+                                disabled={loading}
+                            >
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                )}
 
                 <div className="bg-[#22272f] rounded-lg p-6 mb-8">
                     <h3 className="text-xl mb-4">Resumo do pedido</h3>

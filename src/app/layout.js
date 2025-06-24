@@ -3,6 +3,7 @@ import Topo from "@/components/Topo";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import { usePathname } from 'next/navigation';
+import { useEffect } from "react";
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
@@ -29,10 +30,13 @@ export default function RootLayout({ children }) {
     }
   };
 
+  useEffect(() => {
+    document.title = getPageTitle();
+  }, [pathname]);
+
   return (
     <html lang="en">
       <head>
-        <title>{getPageTitle()}</title>
         <link rel="icon" href="/Vivanti.png" type="image/png" sizes="32x32" />
       </head>
       <body>

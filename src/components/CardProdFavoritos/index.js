@@ -2,10 +2,10 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { FaHeart } from "react-icons/fa";
-export default function CardProd({ produto }) {
+
+export default function CardProdFavoritos({ produto }) {
     const router = useRouter();
 
-    // Ensure produto has all required properties with default values
     const {
         idProduto = '',
         fotoVinho = '',
@@ -20,6 +20,20 @@ export default function CardProd({ produto }) {
     const handleRedirect = () => {
         if (idProduto) {
             router.push(`/produto/${idProduto}`);
+        }
+    };
+
+    // Remove favorito ao clicar no coração
+    const handleRemoveFavorite = async (e) => {
+        e.stopPropagation();
+        try {
+            await fetch(`https://localhost:8000/favoritos/${idProduto}`, {
+                method: 'DELETE'
+            });
+            // Atualiza a página para refletir a remoção
+            window.location.reload();
+        } catch (error) {
+            alert("Erro ao remover dos favoritos.");
         }
     };
 
@@ -41,9 +55,11 @@ export default function CardProd({ produto }) {
                     </p>
                     <div className="grid grid-cols-2 gap-2 items-center justify-center">
                         <button
-                            onClick={handleRedirect}
+                            onClick={handleRemoveFavorite}
                             className="cursor-pointer"
-                        > <FaHeart className="size-4 text-red-700" />
+                            title="Remover dos favoritos"
+                        >
+                            <FaHeart className="size-4 text-red-700" />
                         </button>
 
                         <button

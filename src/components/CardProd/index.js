@@ -1,11 +1,11 @@
 'use client';
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 export default function CardProd({ produto }) {
     const router = useRouter();
-    
-    // Ensure produto has all required properties with default values
     const {
         idProduto = '',
         fotoVinho = '',
@@ -17,6 +17,61 @@ export default function CardProd({ produto }) {
         regiao = ''
     } = produto || {};
 
+    const [favorited, setFavorited] = useState(false);
+
+    // Load favorite state from cookies
+    useEffect(() => {
+        const favs = Cookies.get('favoritos');
+        if (favs) {
+            const favArray = JSON.parse(favs);
+            setFavorited(favArray.includes(idProduto));
+        }
+    }, [idProduto]);
+
+    // Toggle favorite and update cookies and API
+    const handleFavorite = async (e) => {
+        e.stopPropagation();
+        const favs = Cookies.get('favoritos');
+        let favArray = favs ? JSON.parse(favs) : [];
+        const accessToken = Cookies.get('accessToken');
+        let usuarioCpf = null;
+        if (accessToken) {
+            try {
+                const payload = JSON.parse(atob(accessToken.split('.')[1]));
+                usuarioCpf = payload.cpf;
+            } catch {}
+        }
+
+        if (!usuarioCpf) {
+            alert("Você precisa estar logado para favoritar.");
+            return;
+        }
+
+        if (favorited) {
+            favArray = favArray.filter(id => id !== idProduto);
+            // Aqui você pode implementar o DELETE se desejar remover do backend também
+        } else {
+            favArray.push(idProduto);
+            // Envia POST para a API de favoritos
+            try {
+                await fetch("https://localhost:8000/favoritos", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        usuarioCpf,
+                        idProduto
+                    })
+                });
+            } catch (error) {
+                alert("Erro ao favoritar produto.");
+            }
+        }
+        Cookies.set('favoritos', JSON.stringify(favArray), { expires: 365 });
+        setFavorited(!favorited);
+    };
+
     const handleRedirect = () => {
         if (idProduto) {
             router.push(`/produto/${idProduto}`);
@@ -25,7 +80,17 @@ export default function CardProd({ produto }) {
 
     return (
         <div className="flex justify-between gap-10 mt-2">
-            <div className="w-60 h-auto bg-[#EAE5E1] rounded-[5px] p-6">
+            <div className="w-60 h-auto bg-[#EAE5E1] rounded-[5px] p-6 relative">
+                <button
+                    onClick={handleFavorite}
+                    className="absolute top-4 right-4 text-2xl"
+                    aria-label="Favoritar"
+                >
+                    {favorited
+                        ? <AiFillHeart color="#e63946" />
+                        : <AiOutlineHeart color="#3F0D09" />
+                    }
+                </button>
                 <img
                     className="w-48 h-60 ml-auto mr-auto"
                     src={fotoVinho}

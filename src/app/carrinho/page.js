@@ -53,12 +53,58 @@ export default function Carrinho() {
         }
     };
 
-    const handleCheckout = (finalTotal) => {
+    const handleCheckout = async (finalTotal) => {
         if (cartItems.length === 0) {
             toast.error('Adicione itens ao carrinho para continuar');
             return;
         }
-        router.push('/pagamento');
+
+        // Recupera o CPF do usuário do token
+        const accessToken = Cookies.get('accessToken');
+        let usuarioCpf = null;
+        if (accessToken) {
+            try {
+                const payload = JSON.parse(atob(accessToken.split('.')[1]));
+                usuarioCpf = payload.cpf;
+            } catch {}
+        }
+        if (!usuarioCpf) {
+            toast.error('Você precisa estar logado para finalizar a compra.');
+            return;
+        }
+
+        // Para teste, use idEndereco e idCupom fixos
+        const pedido = {
+            usuarioCpf,
+            idEndereco: 1, // ajuste conforme sua lógica de endereço
+            valorTotal: finalTotal,
+            status: "Pendente",
+            idCupom: 1 // ajuste conforme sua lógica de cupom
+        };
+
+        try {
+            const response = await fetch("https://localhost:8000/pedidos", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(pedido)
+            });
+
+            if (!response.ok) {
+                throw new Error('Erro ao registrar pedido');
+            }
+
+            const pedidoCriado = await response.json();
+            // Corrija aqui para acessar o idPedido corretamente:
+            const idPedido = pedidoCriado.pedido.idPedido;
+            Cookies.set('idPedido', idPedido);
+
+            toast.success('Pedido criado com sucesso!');
+            router.push('/pagamento');
+        } catch (error) {
+            toast.error('Erro ao criar pedido');
+        }
     };
 
     return (
